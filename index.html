@@ -18,14 +18,8 @@
       --card: #FFFFFF;
       --line: rgba(10, 38, 71, 0.10);
     }
-    * {
-      box-sizing: border-box;
-    }
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
     body {
       background: var(--cream);
       font-family: 'Noto Sans Sinhala', 'Space Grotesk', sans-serif;
@@ -34,487 +28,209 @@
       -webkit-font-smoothing: antialiased;
     }
     @media (prefers-reduced-motion: reduce) {
-      * {
-        animation-duration: 0.001ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.001ms !important;
-      }
+      * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
     }
-
-    .page {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 28px 20px 60px;
-    }
+    .page { max-width: 1180px; margin: 0 auto; padding: 28px 20px 60px; }
 
     /* ---------- Header ---------- */
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 26px;
-      flex-wrap: wrap;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 26px; flex-wrap: wrap; }
+    .brand { display: flex; align-items: center; gap: 10px; }
     .brand-mark {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
+      width: 38px; height: 38px; border-radius: 10px;
       background: linear-gradient(160deg, var(--ocean), var(--navy));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-family: 'Space Grotesk';
-      font-weight: 700;
-      font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-family: 'Space Grotesk'; font-weight: 700; font-size: 15px;
       box-shadow: 0 4px 14px rgba(10, 38, 71, 0.25);
     }
-    .brand-name {
-      font-family: 'Space Grotesk';
-      font-weight: 700;
-      font-size: 19px;
-      letter-spacing: -0.01em;
-    }
-    .brand-name span {
-      color: var(--leaf);
-    }
-    .brand-tag {
-      font-family: 'Abhaya Libre';
-      font-size: 14px;
-      color: rgba(10, 38, 71, 0.55);
-      margin-top: -2px;
-    }
+    .brand-name { font-family: 'Space Grotesk'; font-weight: 700; font-size: 19px; letter-spacing: -0.01em; }
+    .brand-name span { color: var(--leaf); }
+    .brand-tag { font-family: 'Abhaya Libre'; font-size: 14px; color: rgba(10, 38, 71, 0.55); margin-top: -2px; }
     .badge {
-      font-family: 'Space Grotesk';
-      font-size: 12px;
-      font-weight: 600;
-      background: rgba(23, 137, 196, 0.09);
-      color: var(--ocean);
-      padding: 7px 13px;
-      border-radius: 99px;
-      border: 1px solid rgba(23, 137, 196, 0.2);
-      white-space: nowrap;
+      font-family: 'Space Grotesk'; font-size: 12px; font-weight: 600;
+      background: rgba(23, 137, 196, 0.09); color: var(--ocean);
+      padding: 7px 13px; border-radius: 99px;
+      border: 1px solid rgba(23, 137, 196, 0.2); white-space: nowrap;
     }
+    .badge .date { color: var(--navy); font-weight: 700; }
 
-    /* HOME BUTTON */
     .home-btn {
-      font-family: 'Space Grotesk';
-      font-weight: 600;
-      font-size: 13px;
-      background: var(--navy);
-      color: white;
-      padding: 8px 18px;
-      border-radius: 99px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(10, 38, 71, 0.15);
-      transition: background 0.2s, transform 0.1s;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      font-family: 'Space Grotesk'; font-weight: 600; font-size: 13px;
+      background: var(--navy); color: white; padding: 8px 18px; border-radius: 99px;
+      border: none; cursor: pointer; box-shadow: 0 4px 10px rgba(10, 38, 71, 0.15);
+      transition: background 0.2s, transform 0.1s; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
     }
-    .home-btn:hover {
-      background: #0d3363;
-    }
-    .home-btn:active {
-      transform: scale(0.97);
-    }
-    .home-btn svg {
-      width: 16px;
-      height: 16px;
-      fill: currentColor;
-    }
+    .home-btn:hover { background: #0d3363; }
+    .home-btn:active { transform: scale(0.97); }
+    .home-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
     .hero-title {
-      font-family: 'Abhaya Libre';
-      font-weight: 800;
-      font-size: clamp(28px, 4vw, 42px);
-      line-height: 1.25;
-      margin: 0 0 8px;
-      color: var(--navy);
+      font-family: 'Abhaya Libre'; font-weight: 800;
+      font-size: clamp(28px, 4vw, 42px); line-height: 1.25;
+      margin: 0 0 8px; color: var(--navy);
     }
     .hero-sub {
-      font-size: 16px;
-      color: rgba(10, 38, 71, 0.62);
-      margin: 0 0 30px;
-      max-width: 640px;
-      line-height: 1.6;
+      font-size: 16px; color: rgba(10, 38, 71, 0.62);
+      margin: 0 0 12px; max-width: 640px; line-height: 1.6;
+    }
+    .effective-note {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Space Grotesk'; font-size: 12.5px; font-weight: 600;
+      background: rgba(95, 174, 62, 0.10); color: #3f7d28;
+      border: 1px solid rgba(95, 174, 62, 0.3);
+      padding: 7px 14px; border-radius: 99px; margin-bottom: 26px;
+    }
+    .effective-note .dot-live {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--leaf);
+      box-shadow: 0 0 0 0 rgba(95, 174, 62, 0.6); animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(95, 174, 62, 0.6); }
+      70% { box-shadow: 0 0 0 8px rgba(95, 174, 62, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(95, 174, 62, 0); }
     }
 
     /* ---------- Main grid ---------- */
-    .grid {
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 22px;
-      align-items: start;
-    }
+    .grid { display: grid; grid-template-columns: 300px 1fr; gap: 22px; align-items: start; }
     @media (max-width: 860px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-      .tank-wrap {
-        order: 2;
-      }
-      .form-card {
-        order: 1;
-      }
+      .grid { grid-template-columns: 1fr; }
+      .tank-wrap { order: 2; }
+      .form-card { order: 1; }
     }
 
-    /* ---------- Tank (signature element) ---------- */
+    /* ---------- Tank ---------- */
     .tank-wrap {
       background: linear-gradient(180deg, var(--navy), #0d3363 70%, var(--navy));
-      border-radius: 24px;
-      padding: 26px 22px 22px;
-      position: relative;
-      overflow: hidden;
+      border-radius: 24px; padding: 26px 22px 22px; position: relative; overflow: hidden;
       box-shadow: 0 18px 40px -14px rgba(10, 38, 71, 0.55);
-      min-height: 520px;
-      display: flex;
-      flex-direction: column;
+      min-height: 520px; display: flex; flex-direction: column;
     }
     .tank-label {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      font-family: 'Space Grotesk';
-      text-transform: uppercase;
-      margin-bottom: 14px;
+      color: rgba(255, 255, 255, 0.7); font-size: 12px; letter-spacing: 0.04em;
+      font-family: 'Space Grotesk'; text-transform: uppercase; margin-bottom: 14px;
     }
     .tank-shell {
-      position: relative;
-      flex: 1;
-      border-radius: 18px;
+      position: relative; flex: 1; border-radius: 18px;
       background: rgba(255, 255, 255, 0.05);
       border: 1.5px solid rgba(255, 255, 255, 0.18);
-      overflow: hidden;
-      min-height: 300px;
+      overflow: hidden; min-height: 300px;
     }
     .tank-liquid {
-      position: absolute;
-      left: -25%;
-      width: 150%;
-      bottom: 0;
-      height: 0%;
+      position: absolute; left: -25%; width: 150%; bottom: 0; height: 0%;
       transition: height 1.4s cubic-bezier(.22, .9, .3, 1.15);
     }
-    .tank-liquid svg {
-      display: block;
-      width: 100%;
-    }
-    .wave {
-      animation: waveMove 7s linear infinite;
-    }
-    .wave.back {
-      animation-duration: 9s;
-      opacity: 0.55;
-    }
-    @keyframes waveMove {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(-50%);
-      }
-    }
-    .liquid-fill-top {
-      fill: var(--aqua);
-    }
+    .tank-liquid svg { display: block; width: 100%; }
+    .wave { animation: waveMove 7s linear infinite; }
+    .wave.back { animation-duration: 9s; opacity: 0.55; }
+    @keyframes waveMove { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .liquid-fill-top { fill: var(--aqua); }
     .liquid-body {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      top: 14px;
+      position: absolute; left: 0; right: 0; bottom: 0; top: 14px;
       background: linear-gradient(180deg, rgba(111, 214, 232, 0.9), rgba(23, 137, 196, 0.95) 40%, rgba(95, 174, 62, 0.9));
     }
     .bubble {
-      position: absolute;
-      bottom: -20px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.55);
-      animation: rise linear infinite;
+      position: absolute; bottom: -20px; border-radius: 50%;
+      background: rgba(255, 255, 255, 0.55); animation: rise linear infinite;
     }
     @keyframes rise {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 0;
-      }
-      10% {
-        opacity: 0.9;
-      }
-      100% {
-        transform: translateY(-340px) scale(0.6);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) scale(1); opacity: 0; }
+      10% { opacity: 0.9; }
+      100% { transform: translateY(-340px) scale(0.6); opacity: 0; }
     }
-    .tank-readout {
-      position: absolute;
-      top: 16px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      z-index: 3;
-      pointer-events: none;
-    }
+    .tank-readout { position: absolute; top: 16px; left: 0; right: 0; text-align: center; z-index: 3; pointer-events: none; }
     .tank-percent {
-      font-family: 'Space Grotesk';
-      font-weight: 700;
-      color: white;
-      font-size: 34px;
+      font-family: 'Space Grotesk'; font-weight: 700; color: white; font-size: 34px;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
     }
     .tank-percent-label {
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.75);
-      letter-spacing: 0.05em;
-      font-family: 'Space Grotesk';
-      text-transform: uppercase;
-      margin-top: 2px;
+      font-size: 11px; color: rgba(255, 255, 255, 0.75); letter-spacing: 0.05em;
+      font-family: 'Space Grotesk'; text-transform: uppercase; margin-top: 2px;
     }
-    .tank-footnote {
-      margin-top: 14px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 11.5px;
-      color: rgba(255, 255, 255, 0.65);
-    }
-    .legend {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
+    .tank-footnote { margin-top: 14px; display: flex; justify-content: space-between; font-size: 11.5px; color: rgba(255, 255, 255, 0.65); }
+    .legend { display: flex; align-items: center; gap: 6px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
 
     /* ---------- Form Card ---------- */
     .form-card {
-      background: var(--card);
-      border-radius: 24px;
-      border: 1px solid var(--line);
-      padding: 28px 28px 26px;
-      box-shadow: 0 10px 30px -18px rgba(10, 38, 71, 0.25);
+      background: var(--card); border-radius: 24px; border: 1px solid var(--line);
+      padding: 28px 28px 26px; box-shadow: 0 10px 30px -18px rgba(10, 38, 71, 0.25);
     }
-    .field {
-      margin-bottom: 22px;
-    }
+    .field { margin-bottom: 22px; }
     .field label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: rgba(10, 38, 71, 0.7);
-      margin-bottom: 9px;
-      font-family: 'Space Grotesk';
+      display: block; font-size: 13px; font-weight: 600;
+      color: rgba(10, 38, 71, 0.7); margin-bottom: 9px; font-family: 'Space Grotesk';
     }
     .amount-input-wrap {
-      display: flex;
-      align-items: center;
-      border: 1.5px solid var(--line);
-      border-radius: 14px;
-      padding: 0 6px 0 16px;
+      display: flex; align-items: center; border: 1.5px solid var(--line);
+      border-radius: 14px; padding: 0 6px 0 16px;
       transition: border-color .2s, box-shadow .2s;
     }
-    .amount-input-wrap:focus-within {
-      border-color: var(--ocean);
-      box-shadow: 0 0 0 4px rgba(23, 137, 196, 0.12);
-    }
-    .amount-input-wrap span {
-      font-family: 'Space Grotesk';
-      font-weight: 600;
-      color: var(--ocean);
-      font-size: 16px;
-    }
+    .amount-input-wrap:focus-within { border-color: var(--ocean); box-shadow: 0 0 0 4px rgba(23, 137, 196, 0.12); }
+    .amount-input-wrap span { font-family: 'Space Grotesk'; font-weight: 600; color: var(--ocean); font-size: 16px; }
     .amount-input-wrap input {
-      border: none;
-      outline: none;
-      background: transparent;
-      font-family: 'Space Grotesk';
-      font-size: 22px;
-      font-weight: 600;
-      padding: 14px 10px;
-      width: 100%;
-      color: var(--navy);
+      border: none; outline: none; background: transparent;
+      font-family: 'Space Grotesk'; font-size: 22px; font-weight: 600;
+      padding: 14px 10px; width: 100%; color: var(--navy);
     }
-    .quick-amounts {
-      display: flex;
-      gap: 8px;
-      margin-top: 10px;
-      flex-wrap: wrap;
-    }
+    .quick-amounts { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
     .chip {
-      border: 1.5px solid var(--line);
-      background: transparent;
-      padding: 6px 12px;
-      border-radius: 99px;
-      font-size: 12.5px;
-      font-family: 'Space Grotesk';
-      font-weight: 600;
-      color: var(--navy);
-      cursor: pointer;
-      transition: .15s;
+      border: 1.5px solid var(--line); background: transparent;
+      padding: 6px 12px; border-radius: 99px;
+      font-size: 12.5px; font-family: 'Space Grotesk'; font-weight: 600;
+      color: var(--navy); cursor: pointer; transition: .15s;
     }
-    .chip:hover {
-      border-color: var(--ocean);
-      color: var(--ocean);
-    }
+    .chip:hover { border-color: var(--ocean); color: var(--ocean); }
 
-    .seg {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
+    .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .seg button {
-      border: 1.5px solid var(--line);
-      background: transparent;
-      padding: 11px 10px;
-      border-radius: 12px;
-      font-family: 'Noto Sans Sinhala';
-      font-size: 14px;
-      font-weight: 600;
-      color: rgba(10, 38, 71, 0.65);
-      cursor: pointer;
-      transition: .15s;
+      border: 1.5px solid var(--line); background: transparent;
+      padding: 11px 10px; border-radius: 12px;
+      font-family: 'Noto Sans Sinhala'; font-size: 14px; font-weight: 600;
+      color: rgba(10, 38, 71, 0.65); cursor: pointer; transition: .15s;
     }
-    .seg button.active {
-      border-color: var(--ocean);
-      background: rgba(23, 137, 196, 0.08);
-      color: var(--ocean);
-    }
+    .seg button.active { border-color: var(--ocean); background: rgba(23, 137, 196, 0.08); color: var(--ocean); }
 
-    .period-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
+    .period-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
     .period-grid button {
-      border: 1.5px solid var(--line);
-      background: transparent;
-      padding: 12px 4px;
-      border-radius: 12px;
-      font-family: 'Space Grotesk';
-      cursor: pointer;
-      text-align: center;
-      transition: .15s;
+      border: 1.5px solid var(--line); background: transparent;
+      padding: 10px 4px; border-radius: 12px;
+      font-family: 'Space Grotesk'; cursor: pointer; text-align: center; transition: .15s;
     }
-    .period-grid button .m {
-      font-weight: 700;
-      font-size: 16px;
-      color: var(--navy);
-      display: block;
-    }
-    .period-grid button .r {
-      font-size: 11px;
-      color: var(--leaf);
-      font-weight: 600;
-      display: block;
-      margin-top: 2px;
-    }
-    .period-grid button.active {
-      border-color: var(--leaf);
-      background: rgba(95, 174, 62, 0.08);
-    }
+    .period-grid button .m { font-weight: 700; font-size: 13.5px; color: var(--navy); display: block; }
+    .period-grid button .r { font-size: 10.5px; color: var(--leaf); font-weight: 600; display: block; margin-top: 2px; }
+    .period-grid button.active { border-color: var(--leaf); background: rgba(95, 174, 62, 0.08); }
+    .period-grid button:disabled { opacity: 0.35; cursor: not-allowed; }
+    .period-grid button:disabled .r { color: rgba(10, 38, 71, 0.4); }
 
-    .divider {
-      height: 1px;
-      background: var(--line);
-      margin: 24px 0;
-    }
+    .divider { height: 1px; background: var(--line); margin: 24px 0; }
 
     /* ---------- Results ---------- */
-    .results {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-    @media (max-width: 520px) {
-      .results {
-        grid-template-columns: 1fr;
-      }
-    }
-    .result-box {
-      border-radius: 16px;
-      padding: 16px 18px;
-      background: var(--cream);
-      border: 1px solid var(--line);
-    }
-    .result-box.primary {
-      background: linear-gradient(135deg, var(--navy), #123a6b);
-      border: none;
-    }
+    .results { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 520px) { .results { grid-template-columns: 1fr; } }
+    .result-box { border-radius: 16px; padding: 16px 18px; background: var(--cream); border: 1px solid var(--line); }
+    .result-box.primary { background: linear-gradient(135deg, var(--navy), #123a6b); border: none; }
     .rb-label {
-      font-size: 12px;
-      color: rgba(10, 38, 71, 0.55);
-      font-family: 'Space Grotesk';
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      margin-bottom: 6px;
+      font-size: 12px; color: rgba(10, 38, 71, 0.55);
+      font-family: 'Space Grotesk'; font-weight: 600; letter-spacing: 0.02em; margin-bottom: 6px;
     }
-    .result-box.primary .rb-label {
-      color: rgba(255, 255, 255, 0.65);
-    }
-    .rb-value {
-      font-family: 'Space Grotesk';
-      font-weight: 700;
-      font-size: 24px;
-      color: var(--navy);
-    }
-    .result-box.primary .rb-value {
-      color: white;
-      font-size: 27px;
-    }
-    .rb-sub {
-      font-size: 12px;
-      color: rgba(10, 38, 71, 0.5);
-      margin-top: 4px;
-    }
-    .result-box.primary .rb-sub {
-      color: rgba(255, 255, 255, 0.55);
-    }
+    .result-box.primary .rb-label { color: rgba(255, 255, 255, 0.65); }
+    .rb-value { font-family: 'Space Grotesk'; font-weight: 700; font-size: 24px; color: var(--navy); }
+    .result-box.primary .rb-value { color: white; font-size: 27px; }
+    .rb-sub { font-size: 12px; color: rgba(10, 38, 71, 0.5); margin-top: 4px; }
+    .result-box.primary .rb-sub { color: rgba(255, 255, 255, 0.55); }
 
     .rate-pill {
-      margin-top: 22px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(255, 201, 77, 0.15);
-      border: 1px solid rgba(255, 201, 77, 0.4);
-      padding: 12px 16px;
-      border-radius: 14px;
+      margin-top: 22px; display: flex; align-items: center; gap: 10px;
+      background: rgba(255, 201, 77, 0.15); border: 1px solid rgba(255, 201, 77, 0.4);
+      padding: 12px 16px; border-radius: 14px;
     }
-    .rate-pill .icon {
-      font-size: 18px;
-    }
-    .rate-pill .txt {
-      font-size: 12.8px;
-      color: rgba(10, 38, 71, 0.75);
-      line-height: 1.5;
-    }
-    .rate-pill b {
-      color: var(--navy);
-    }
+    .rate-pill .icon { font-size: 18px; }
+    .rate-pill .txt { font-size: 12.8px; color: rgba(10, 38, 71, 0.75); line-height: 1.5; }
+    .rate-pill b { color: var(--navy); }
 
-    .disclaimer {
-      margin-top: 18px;
-      font-size: 11px;
-      color: rgba(10, 38, 71, 0.45);
-      line-height: 1.6;
-    }
+    .disclaimer { margin-top: 18px; font-size: 11px; color: rgba(10, 38, 71, 0.45); line-height: 1.6; }
 
-    footer {
-      margin-top: 34px;
-      text-align: center;
-      font-size: 12px;
-      color: rgba(10, 38, 71, 0.45);
-    }
+    footer { margin-top: 34px; text-align: center; font-size: 12px; color: rgba(10, 38, 71, 0.45); }
   </style>
 </head>
 <body>
@@ -533,12 +249,16 @@
           <svg viewBox="0 0 24 24" width="16" height="16"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
           Home
         </a>
-        <div class="badge">ස්ථාවර තැන්පතු — 2026 පොලී අනුපාත</div>
+        <div class="badge">ස්ථාවර තැන්පතු — <span class="date">2026 සැප්තැම්බර් 14 සිට බලපැවැත්වේ</span></div>
       </div>
     </div>
 
     <h1 class="hero-title">ඔබේ තැන්පතුව කොපමණ වර්ධනය වේද<br>කල්තියා දැනගන්න</h1>
     <p class="hero-sub">මුදල, කාල සීමාව සහ පොලී ගෙවීමේ ක්‍රමය තෝරන්න — ටැංකිය පුරවෙන ආකාරය බලමින්ම ඔබේ තැන්පතුවේ වර්ධනය සජීවීව බලන්න.</p>
+    <div class="effective-note">
+      <span class="dot-live"></span>
+      අලුත් පොලී අනුපාත — 2026 සැප්තැම්බර් 14 සිට ක්‍රියාත්මකයි (HNBF/PBMD(FD&amp;S)/26/11)
+    </div>
 
     <div class="grid">
 
@@ -634,7 +354,7 @@
         </div>
 
         <div class="disclaimer">
-          * මෙම ගණනය කිරීම දර්ශනාත්මක අවබෝධයක් සඳහා පමණි. අවසාන පොලී අනුපාත සහ නියමයන් සඳහා HNB FINANCE ශාඛාවක් හෝ hnbfinance.lk වෙත පිවිසෙන්න. පොලී අනුපාත මහ බැංකු උපදෙස් මත වෙනස්වීමට යටත් වේ.
+          * මෙම ගණනය කිරීම දර්ශනාත්මක අවබෝධයක් සඳහා පමණි. අවසාන පොලී අනුපාත සහ නියමයන් සඳහා HNB FINANCE ශාඛාවක් හෝ hnbfinance.lk වෙත පිවිසෙන්න. පොලී අනුපාත මහ බැංකු උපදෙස් මත වෙනස්වීමට යටත් වේ. (HNBF/PBMD(FD&amp;S)/26/11 — 2026 සැප්තැම්බර් 14 සිට)
         </div>
       </div>
     </div>
@@ -643,22 +363,27 @@
   </div>
 
   <script>
-    // Rates table [months] -> { general:{monthly,monthlyNet,maturity,maturityNet}, senior:{...} }
+    // ===== UPDATED RATES from HNBF/PBMD(FD&S)/26/11 (effective 14 Sep 2026) =====
+    // Non-Senior Citizens (general)
     const RATES = {
-      3: { general: { monthly: 9.50, monthlyNet: 9.92, maturity: 11.41, maturityNet: 11.91 }, senior: { monthly: 9.50,
-          monthlyNet: 9.92, maturity: 11.41, maturityNet: 11.91 } },
-      7: { general: { monthly: 10.50, monthlyNet: 11.02, maturity: 11.63, maturityNet: 11.91 }, senior: { monthly: 10.50,
-          monthlyNet: 11.02, maturity: 11.63, maturityNet: 11.91 } },
-      12: { general: { monthly: 11.50, monthlyNet: 12.13, maturity: 13.13, maturityNet: 13.13 }, senior: { monthly: 12.00,
-          monthlyNet: 12.68, maturity: 13.63, maturityNet: 13.63 } },
-      25: { general: { monthly: 12.25, monthlyNet: 12.96, maturity: 13.50, maturityNet: 12.63 }, senior: { monthly: 12.75,
-          monthlyNet: 13.52, maturity: 14.00, maturityNet: 13.07 } },
-      37: { general: { monthly: 12.50, monthlyNet: 13.24, maturity: 14.00, maturityNet: 12.34 }, senior: { monthly: 13.00,
-          monthlyNet: 13.80, maturity: 14.50, maturityNet: 12.73 } },
-      60: { general: { monthly: 12.00, monthlyNet: 12.68, maturity: 14.50, maturityNet: 11.52 }, senior: { monthly: 12.50,
-          monthlyNet: 13.24, maturity: 15.00, maturityNet: 11.84 } },
+      1:  { general: { monthly: null,  monthlyNet: null,  maturity: 8.00,  maturityNet: 8.30  }, senior: null },
+      3:  { general: { monthly: 9.50,  monthlyNet: 9.92,  maturity: 10.25, maturityNet: 10.65 }, senior: null },
+      4:  { general: { monthly: 8.00,  monthlyNet: 8.30,  maturity: 9.00,  maturityNet: 9.27  }, senior: null },
+      5:  { general: { monthly: 8.00,  monthlyNet: 8.30,  maturity: 9.00,  maturityNet: 9.24  }, senior: null },
+      6:  { general: { monthly: 8.50,  monthlyNet: 8.84,  maturity: 9.50,  maturityNet: 9.73  }, senior: null },
+      7:  { general: { monthly: 10.25, monthlyNet: 10.75, maturity: 11.50, maturityNet: 11.77 }, senior: null },
+      9:  { general: { monthly: 8.50,  monthlyNet: 8.84,  maturity: 9.50,  maturityNet: 9.61  }, senior: null },
+      12: { general: { monthly: 10.75, monthlyNet: 11.30, maturity: 12.50, maturityNet: 12.50 }, senior: { monthly: 11.25, monthlyNet: 11.85, maturity: 13.00, maturityNet: 13.00 } },
+      13: { general: { monthly: 9.00,  monthlyNet: 9.38,  maturity: 10.00, maturityNet: 9.96  }, senior: { monthly: 9.50,  monthlyNet: 9.92,  maturity: 10.50, maturityNet: 10.46 } },
+      15: { general: { monthly: 9.00,  monthlyNet: 9.38,  maturity: 10.00, maturityNet: 9.88  }, senior: { monthly: 9.50,  monthlyNet: 9.92,  maturity: 10.50, maturityNet: 10.37 } },
+      18: { general: { monthly: 9.00,  monthlyNet: 9.38,  maturity: 10.00, maturityNet: 9.77  }, senior: { monthly: 9.50,  monthlyNet: 9.92,  maturity: 10.50, maturityNet: 10.24 } },
+      24: { general: { monthly: 9.00,  monthlyNet: 9.38,  maturity: 10.00, maturityNet: 9.54  }, senior: { monthly: 9.50,  monthlyNet: 9.92,  maturity: 10.50, maturityNet: 10.00 } },
+      25: { general: { monthly: 11.00, monthlyNet: 11.57, maturity: 13.25, maturityNet: 12.41 }, senior: { monthly: 11.50, monthlyNet: 12.13, maturity: 13.75, maturityNet: 12.85 } },
+      36: { general: { monthly: 9.50,  monthlyNet: 9.92,  maturity: 10.00, maturityNet: 9.14  }, senior: { monthly: 10.00, monthlyNet: 10.47, maturity: 10.50, maturityNet: 9.56  } },
+      37: { general: { monthly: 11.50, monthlyNet: 12.13, maturity: 14.00, maturityNet: 11.95 }, senior: { monthly: 12.00, monthlyNet: 12.68, maturity: 14.50, maturityNet: 12.34 } },
+      60: { general: { monthly: 11.75, monthlyNet: 12.40, maturity: 14.50, maturityNet: 11.52 }, senior: { monthly: 12.25, monthlyNet: 12.96, maturity: 15.00, maturityNet: 11.84 } },
     };
-    const PERIODS = [3, 7, 12, 25, 37, 60];
+    const PERIODS = [1, 3, 4, 5, 6, 7, 9, 12, 13, 15, 18, 24, 25, 36, 37, 60];
 
     let state = {
       amount: 100000,
@@ -674,26 +399,37 @@
       const btn = document.createElement('button');
       btn.dataset.val = m;
       btn.innerHTML =
-        `<span class="m">මාස ${m}</span><span class="r">${RATES[m][state.depositor].monthly}%</span>`;
+        `<span class="m">මාස ${m}</span><span class="r">—</span>`;
       if (m === state.period) btn.classList.add('active');
-      btn.addEventListener('click', () => { state.period = m;
+      btn.addEventListener('click', () => {
+        if (btn.disabled) return;
+        state.period = m;
         refreshPeriodGrid();
-        calculate(); });
+        calculate();
+      });
       periodGrid.appendChild(btn);
     });
 
     function refreshPeriodGrid() {
       [...periodGrid.children].forEach(btn => {
         const m = Number(btn.dataset.val);
-        btn.classList.toggle('active', m === state.period);
+        const data = RATES[m][state.depositor];
         const rateKey = state.payout === 'monthly' ? 'monthly' : 'maturity';
-        btn.querySelector('.r').textContent = RATES[m][state.depositor][rateKey] + '%';
+        const hasData = data && data[rateKey] !== null && data[rateKey] !== undefined;
+
+        btn.classList.toggle('active', m === state.period);
+        btn.disabled = !hasData;
+
+        if (hasData) {
+          btn.querySelector('.r').textContent = data[rateKey] + '%';
+        } else {
+          btn.querySelector('.r').textContent = 'N/A';
+        }
       });
     }
 
     // Amount input
     const amountInput = document.getElementById('amountInput');
-
     function formatNumber(n) { return Number(n).toLocaleString('en-US'); }
     amountInput.addEventListener('input', (e) => {
       const raw = e.target.value.replace(/[^0-9]/g, '');
@@ -702,8 +438,7 @@
       calculate();
     });
     amountInput.addEventListener('blur', () => {
-      if (!state.amount) { state.amount = 0;
-        amountInput.value = '0'; }
+      if (!state.amount) { state.amount = 0; amountInput.value = '0'; }
     });
     const quickAmountsEl = document.getElementById('quickAmounts');
     const amountLabelEl = document.getElementById('amountLabel');
@@ -744,6 +479,12 @@
           seg.querySelectorAll('button').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           state[key] = btn.dataset.val;
+
+          // If switching depositor to senior and current period has no senior data, jump to 12
+          if (key === 'depositor' && state.depositor === 'senior') {
+            const cur = RATES[state.period]?.senior;
+            if (!cur) { state.period = 12; }
+          }
           refreshPeriodGrid();
           if (extra) extra();
           calculate();
@@ -754,15 +495,10 @@
     setupSeg('payoutSeg', 'payout', updateAmountFieldUI);
     setupSeg('modeSeg', 'mode', updateAmountFieldUI);
 
-    // Currency formatting for results
-    function rs(n) {
-      return 'රු. ' + Math.round(n).toLocaleString('en-US');
-    }
+    function rs(n) { return 'රු. ' + Math.round(n).toLocaleString('en-US'); }
 
-    // Animated count-up
     function animateValue(el, start, end, duration, formatter) {
       const startTime = performance.now();
-
       function step(now) {
         const progress = Math.min((now - startTime) / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
@@ -773,18 +509,21 @@
       requestAnimationFrame(step);
     }
 
-    let lastHero = 0,
-      lastSecond = 0,
-      lastPct = 0;
+    let lastHero = 0, lastSecond = 0, lastPct = 0;
 
     function calculate() {
       const data = RATES[state.period][state.depositor];
+      if (!data) return;
+
       const grossRate = state.payout === 'monthly' ? data.monthly : data.maturity;
       const netRate = state.payout === 'monthly' ? data.monthlyNet : data.maturityNet;
-      const years = state.period / 12;
-      const monthlyRateFrac = data.monthly / 100 / 12;
 
-      // Determine principal P: entered directly (forward) or derived from a target income (reverse)
+      // Guard: if selected combination has no rate, bail gracefully
+      if (grossRate === null || grossRate === undefined) return;
+
+      const years = state.period / 12;
+      const monthlyRateFrac = data.monthly !== null ? data.monthly / 100 / 12 : 0;
+
       let P;
       if (state.mode === 'reverse') {
         const desired = state.amount;
@@ -850,7 +589,6 @@
         growthPct = P > 0 ? (totalInterest / P) * 100 : 0;
       }
 
-      // tank fill: percentage growth relative to principal, capped visually
       const fillPct = Math.min(18 + growthPct * 3.4, 92);
       document.getElementById('tankLiquid').style.height = fillPct + '%';
       animateValue(document.getElementById('tankPercent'), lastPct, growthPct, 1100, (v) => v.toFixed(1) + '%');
@@ -865,9 +603,7 @@
       spawnBubbles();
     }
 
-    // Bubbles
     const bubbleLayer = document.getElementById('bubbleLayer');
-
     function spawnBubbles() {
       bubbleLayer.innerHTML = '';
       const count = 10;
