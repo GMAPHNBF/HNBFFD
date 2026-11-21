@@ -27,9 +27,10 @@
           radial-gradient(700px 460px at 50% 100%, rgba(37,170,225,0.14), transparent 70%);
       background-attachment: fixed;
       -webkit-font-smoothing: antialiased;
+      padding-bottom: 80px; /* Space for mobile bottom bar */
     }
 
-    .page { max-width: 1000px; margin: 0 auto; padding: 24px 20px 60px; }
+    .page { max-width: 1000px; margin: 0 auto; padding: 24px 20px 40px; }
 
     /* ---------- HNB FINANCE LOGO (with popup) ---------- */
     .hnb-logo-wrap{ position: relative; display: inline-block; z-index: 50; }
@@ -97,7 +98,7 @@
     .lp-opt:hover .lp-go{ transform: translateX(3px); }
 
     /* ---------- Header ---------- */
-    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 26px; flex-wrap: wrap; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 26px; flex-wrap: wrap; position: relative; }
     
     .badge {
       font-size: 12px; font-weight: 700; background: rgba(22, 118, 170, 0.09); color: var(--ocean);
@@ -116,6 +117,13 @@
     .home-btn:hover { transform: translateY(-2px); filter: brightness(1.08) saturate(1.1); }
     .home-btn:active { transform: translateY(0); }
     .home-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+    .menu-btn {
+      display: none; width: 42px; height: 42px; border-radius: 12px; border: 1.5px solid rgba(143,163,184,0.5);
+      background: linear-gradient(150deg, rgba(255,255,255,0.92), rgba(236,246,252,0.72)); color: var(--hnb-blue);
+      font-size: 18px; cursor: pointer; align-items: center; justify-content: center;
+      box-shadow: 0 4px 10px rgba(14,88,128,0.08), inset 0 1px 0 #fff;
+    }
 
     .hero-title { font-weight: 800; font-size: clamp(24px, 4vw, 34px); line-height: 1.25; margin: 0 0 8px; color: var(--navy); }
     .hero-sub { font-size: 15px; color: rgba(10, 38, 71, 0.65); margin: 0 0 16px; max-width: 640px; line-height: 1.6; }
@@ -220,19 +228,76 @@
 
     footer { margin-top: 40px; text-align: center; font-size: 12.5px; color: var(--hnb-mu); font-weight: 600; }
 
-    /* ---------- Mobile Adjustments ---------- */
+    /* =========================================
+       MOBILE VIEW STYLES & OPTIONS
+       ========================================= */
+    
+    /* Mobile Drawer */
+    .m-drawer { position: fixed; inset: 0; z-index: 100; background: rgba(15,23,42,0.55); backdrop-filter: blur(4px); display: none; }
+    .m-drawer.on { display: block; }
+    .m-drawer-panel {
+      position: absolute; right: 0; top: 0; bottom: 0; width: 85%; max-width: 320px;
+      background: linear-gradient(150deg, rgba(255,255,255,0.98), rgba(255,255,255,0.88));
+      -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+      border-left: 1.5px solid rgba(255,255,255,0.98); box-shadow: -10px 0 40px rgba(14,88,128,0.2);
+      display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.3s cubic-bezier(.2,.9,.3,1.2);
+    }
+    .m-drawer.on .m-drawer-panel { transform: translateX(0); }
+    .m-drawer-header { padding: 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid var(--hnb-bd); }
+    .m-drawer-header h3 { font-size: 16px; font-weight: 800; color: var(--navy); }
+    .m-close { background: none; border: none; font-size: 20px; color: var(--hnb-mu); cursor: pointer; }
+    .m-drawer-body { padding: 16px; flex: 1; }
+    .m-link { display: flex; align-items: center; gap: 10px; padding: 14px; border-radius: 12px; text-decoration: none; font-size: 14px; font-weight: 700; color: var(--navy); transition: 0.2s; margin-bottom: 8px; }
+    .m-link:hover { background: rgba(22,118,170,0.08); }
+    .m-link.reset { color: #d6453d; }
+    .m-link.reset:hover { background: rgba(214,69,61,0.08); }
+
+    /* Sticky Bottom Bar */
+    .mobile-bottom-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
+      background: linear-gradient(150deg, rgba(255,255,255,0.95), rgba(240,248,255,0.92));
+      -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+      border-top: 1.5px solid rgba(255,255,255,0.98); box-shadow: 0 -4px 20px rgba(14,88,128,0.15);
+      padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+      display: none; justify-content: space-between; align-items: center;
+    }
+    .m-bar-label { font-size: 11px; color: var(--hnb-mu); font-weight: 700; text-transform: uppercase; margin-bottom: 2px; }
+    .m-bar-value { font-size: 20px; font-weight: 800; color: var(--hnb-blue); }
+    .m-bar-btn {
+      background: linear-gradient(160deg, var(--hnb-blue), var(--hnb-dark));
+      color: white; border: 1.5px solid rgba(255,255,255,0.4); padding: 10px 16px; border-radius: 10px;
+      font-weight: 700; font-size: 13px; cursor: pointer; box-shadow: 0 4px 10px rgba(22,118,170,0.3); display: flex; align-items: center; gap: 6px;
+    }
+
+    /* FAB to scroll to results */
+    .fab-results {
+      position: fixed; bottom: 90px; right: 16px; z-index: 80;
+      width: 50px; height: 50px; border-radius: 50%;
+      background: linear-gradient(160deg, var(--hnb-green), #4a7d27);
+      color: white; border: none; font-size: 20px; cursor: pointer;
+      box-shadow: 0 6px 16px rgba(111,168,58,0.4); display: none; align-items: center; justify-content: center;
+      transition: transform 0.2s;
+    }
+    .fab-results:active { transform: scale(0.9); }
+
     @media (max-width: 768px) {
-      .page { padding: 16px 14px 40px; }
-      .topbar { flex-direction: column; align-items: flex-start; gap: 12px; }
-      .topbar .badge { order: 3; white-space: normal; text-align: center; width: 100%; }
-      .topbar .home-btn { position: absolute; top: 16px; right: 14px; padding: 8px 14px; font-size: 12px; }
+      .page { padding: 16px 14px 20px; }
+      .topbar { align-items: center; margin-bottom: 20px; }
+      .badge { display: none; } /* Hide badge, move info to subtitle or drawer */
+      .home-btn { display: none; } /* Hide desktop home button */
+      .menu-btn { display: flex; }
+      
       .form-card { padding: 20px 18px; border-radius: 20px; }
       .period-grid { grid-template-columns: repeat(3, 1fr); }
-      .seg { grid-template-columns: 1fr; }
+      .seg { grid-template-columns: 1fr; gap: 8px; }
+      
       .hnb-logo { padding: 6px 12px 6px 10px; }
       .hnb-logo .hnb-part { font-size: 1.2rem; }
       .hnb-logo .fin-part { font-size: 0.72rem; letter-spacing: 2px; margin-left: 6px; padding-left: 7px; }
       .logo-pop { width: 290px; }
+      
+      .mobile-bottom-bar { display: flex; }
+      .fab-results { display: flex; }
     }
   </style>
 </head>
@@ -240,7 +305,7 @@
   <div class="page">
 
     <!-- Topbar -->
-    <div class="topbar" style="position: relative;">
+    <div class="topbar">
       
       <!-- HNB Logo (with popup) -->
       <div class="hnb-logo-wrap" id="logoWrap">
@@ -275,6 +340,11 @@
         Home
       </a>
       <div class="badge">Fixed Deposits — <span class="date">Effective 01st October 2026</span></div>
+      
+      <!-- Mobile Hamburger Menu -->
+      <button class="menu-btn" onclick="openDrawer()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
     </div>
 
     <h1 class="hero-title">Grow Your Savings with Confidence</h1>
@@ -328,7 +398,8 @@
 
         <div class="divider"></div>
 
-        <div class="results">
+        <!-- Main Results (Hidden on mobile, sticky bar shows it instead) -->
+        <div class="results" id="resultsSection" style="scroll-margin-top: 20px;">
           <div class="result-box primary" id="heroBox" style="grid-column:1/-1;">
             <div class="rb-label" id="heroLabel">Monthly Income</div>
             <div class="rb-value" id="heroValue">Rs. 0</div>
@@ -360,6 +431,52 @@
     <footer>HNB FINANCE — hnbfinance.lk &nbsp;•&nbsp; 011 202 48 48 &nbsp;•&nbsp; Member of Sri Lanka Deposit Insurance Scheme</footer>
   </div>
 
+  <!-- ================= MOBILE OVERLAYS & BARS ================= -->
+
+  <!-- Sticky Bottom Bar (Mobile Only) -->
+  <div class="mobile-bottom-bar" id="mobileBottomBar">
+    <div>
+      <div class="m-bar-label" id="mBarLabel">Monthly Income</div>
+      <div class="m-bar-value" id="mBarValue">Rs. 0</div>
+    </div>
+    <button class="m-bar-btn" onclick="scrollToResults()">
+      Details
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+    </button>
+  </div>
+
+  <!-- Floating Action Button (Scroll to Results) -->
+  <button class="fab-results" id="fabResults" onclick="scrollToResults()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+  </button>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="m-drawer" id="mDrawer" onclick="closeDrawerOnBackdrop(event)">
+    <div class="m-drawer-panel">
+      <div class="m-drawer-header">
+        <h3>Menu</h3>
+        <button class="m-close" onclick="closeDrawer()">✕</button>
+      </div>
+      <div class="m-drawer-body">
+        <a href="https://gmaphnbf.github.io/HNBFGMAP/" class="m-link">
+          🏠 Home (GMAP)
+        </a>
+        <a href="https://www.hnbfinance.lk/" target="_blank" class="m-link">
+          🌐 HNB Finance Website
+        </a>
+        <a href="tel:+94114700700" class="m-link">
+          📞 Hotline: 011 4 700 700
+        </a>
+        <button onclick="resetCalculator()" class="m-link reset" style="width: 100%; text-align: left; background: transparent; border: none; cursor: pointer; font-family: inherit;">
+          🔄 Reset Calculator
+        </button>
+        <div style="margin-top: 20px; padding-top: 20px; border-top: 1.5px solid var(--hnb-bd); font-size: 11px; color: var(--hnb-mu); text-align: center;">
+          HNBF/PBMD(FD&S)-26-12<br>Effective 01st Oct 2026
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // ===== LOGO POPUP LOGIC =====
     (function(){
@@ -377,6 +494,36 @@
         document.addEventListener('click', function(e){ if (!wrap.contains(e.target)) pop.classList.remove('show'); });
         document.addEventListener('keydown', function(e){ if (e.key === 'Escape') pop.classList.remove('show'); });
     })();
+
+    // ===== MOBILE DRAWER & UI LOGIC =====
+    function openDrawer(){ document.getElementById('mDrawer').classList.add('on'); document.body.style.overflow = 'hidden'; }
+    function closeDrawer(){ document.getElementById('mDrawer').classList.remove('on'); document.body.style.overflow = ''; }
+    function closeDrawerOnBackdrop(e){ if(e.target.id === 'mDrawer') closeDrawer(); }
+    
+    function scrollToResults(){
+      const el = document.getElementById('resultsSection');
+      if(el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        closeDrawer();
+      }
+    }
+
+    // Hide FAB when results are visible
+    window.addEventListener('scroll', () => {
+      const results = document.getElementById('resultsSection');
+      const fab = document.getElementById('fabResults');
+      if(!results || window.innerWidth > 768) return;
+      
+      const rect = results.getBoundingClientRect();
+      // If results are in view, hide FAB
+      if(rect.top < window.innerHeight - 100 && rect.bottom > 0) {
+        fab.style.opacity = '0';
+        fab.style.pointerEvents = 'none';
+      } else {
+        fab.style.opacity = '1';
+        fab.style.pointerEvents = 'auto';
+      }
+    });
 
     // ===== UPDATED RATES (Effective 01st October 2026) =====
     const RATES = {
@@ -509,7 +656,7 @@
 
     function rs(n) { return 'Rs. ' + Math.round(n).toLocaleString('en-US'); }
 
-    // Calculate Function (No animations, direct DOM update)
+    // Calculate Function
     function calculate() {
       const data = RATES[state.period][state.depositor];
       if (!data) return;
@@ -541,19 +688,26 @@
       document.getElementById('rateValue').textContent = grossRate.toFixed(2) + '%';
       document.getElementById('rateSubLabel').textContent = 'AER ' + netRate.toFixed(2) + '%';
 
+      let heroText = '';
+      let heroLabel = '';
+
       if (state.payout === 'monthly') {
         if (state.mode === 'forward') {
-          document.getElementById('heroLabel').textContent = 'Monthly Income';
+          heroLabel = 'Monthly Income';
+          heroText = rs(monthlyIncome);
+          document.getElementById('heroLabel').textContent = heroLabel;
           document.getElementById('heroSub').textContent = 'Deposited monthly to your account';
-          document.getElementById('heroValue').textContent = rs(monthlyIncome);
+          document.getElementById('heroValue').textContent = heroText;
 
           document.getElementById('secondLabel').textContent = `Total Interest over ${state.period} Months`;
           document.getElementById('secondSub').textContent = `Principal of ${rs(P)} returned at maturity`;
           document.getElementById('secondValue').textContent = rs(totalMonthlyPayout);
         } else {
-          document.getElementById('heroLabel').textContent = 'Required Deposit';
+          heroLabel = 'Required Deposit';
+          heroText = rs(P);
+          document.getElementById('heroLabel').textContent = heroLabel;
           document.getElementById('heroSub').textContent = 'You need to deposit this amount';
-          document.getElementById('heroValue').textContent = rs(P);
+          document.getElementById('heroValue').textContent = heroText;
 
           document.getElementById('secondLabel').textContent = 'Expected Monthly Income';
           document.getElementById('secondSub').textContent = 'Equals your requested income';
@@ -564,22 +718,51 @@
         const totalInterest = maturityValue - P;
 
         if (state.mode === 'forward') {
-          document.getElementById('heroLabel').textContent = 'Maturity Value';
+          heroLabel = 'Maturity Value';
+          heroText = rs(maturityValue);
+          document.getElementById('heroLabel').textContent = heroLabel;
           document.getElementById('heroSub').textContent = `Principal ${rs(P)} + Interest`;
-          document.getElementById('heroValue').textContent = rs(maturityValue);
+          document.getElementById('heroValue').textContent = heroText;
 
           document.getElementById('secondLabel').textContent = 'Total Interest Income';
           document.getElementById('secondSub').textContent = `Accumulated over ${state.period} months`;
           document.getElementById('secondValue').textContent = rs(totalInterest);
         } else {
-          document.getElementById('heroLabel').textContent = 'Required Deposit';
+          heroLabel = 'Required Deposit';
+          heroText = rs(P);
+          document.getElementById('heroLabel').textContent = heroLabel;
           document.getElementById('heroSub').textContent = 'You need to deposit this amount';
-          document.getElementById('heroValue').textContent = rs(P);
+          document.getElementById('heroValue').textContent = heroText;
 
           document.getElementById('secondLabel').textContent = 'Maturity Value';
           document.getElementById('secondSub').textContent = 'Principal + requested interest';
           document.getElementById('secondValue').textContent = rs(maturityValue);
         }
+      }
+
+      // Update Mobile Sticky Bar
+      document.getElementById('mBarLabel').textContent = heroLabel;
+      document.getElementById('mBarValue').textContent = heroText;
+    }
+
+    // Reset function
+    function resetCalculator() {
+      if(confirm('Are you sure you want to reset all inputs?')) {
+        state = { amount: 100000, depositor: 'general', payout: 'monthly', period: 12, mode: 'forward' };
+        
+        // Reset Segments
+        document.querySelectorAll('.seg button').forEach(b => b.classList.remove('active'));
+        document.querySelector('#modeSeg button[data-val="forward"]').classList.add('active');
+        document.querySelector('#depositorSeg button[data-val="general"]').classList.add('active');
+        document.querySelector('#payoutSeg button[data-val="monthly"]').classList.add('active');
+        
+        // Reset input
+        amountInput.value = formatNumber(100000);
+        
+        updateAmountFieldUI();
+        refreshPeriodGrid();
+        calculate();
+        closeDrawer();
       }
     }
 
