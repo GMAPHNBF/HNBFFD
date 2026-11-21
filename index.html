@@ -1,560 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HNB Finance - LKR to Words</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
-    <style>
-        :root{
-            --hnb-blue:#1676aa; --hnb-dark:#0a5480; --hnb-green:#6fa83a;
-            --hnb-tx:#14213d; --hnb-mu:#5d6b82; --hnb-bd:#dbe6ef; --hnb-bd2:#8fa3b8;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HNB Finance | Fixed Deposit Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root{
+      --hnb-blue:#1676aa; --hnb-dark:#0a5480; --hnb-green:#6fa83a;
+      --hnb-tx:#14213d; --hnb-mu:#5d6b82; --hnb-bd:#dbe6ef; --hnb-bd2:#8fa3b8;
+      --navy: #0A2647; --ocean: #1676aa; --leaf: #6fa83a; --cream: #F5F8FB; --card: #FFFFFF;
+    }
 
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            color: #14213d;
-            background-color: #ffffff;
-            background-image:
-                radial-gradient(560px 380px at 8% 6%, rgba(37,170,225,0.22), transparent 70%),
-                radial-gradient(600px 400px at 94% 12%, rgba(127,182,63,0.20), transparent 70%),
-                radial-gradient(700px 460px at 50% 100%, rgba(37,170,225,0.14), transparent 70%);
-            background-attachment: fixed;
-        }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--hnb-tx);
+      min-height: 100vh;
+      background-color: #ffffff;
+      background-image:
+          radial-gradient(560px 380px at 8% 6%, rgba(37,170,225,0.22), transparent 70%),
+          radial-gradient(600px 400px at 94% 12%, rgba(127,182,63,0.20), transparent 70%),
+          radial-gradient(700px 460px at 50% 100%, rgba(37,170,225,0.14), transparent 70%);
+      background-attachment: fixed;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        .container { width: 100%; max-width: 620px; }
+    .page { max-width: 1000px; margin: 0 auto; padding: 24px 20px 60px; }
 
-        /* ============ GLASS CARD ============ */
-        .card {
-            background: linear-gradient(150deg, rgba(255,255,255,0.86), rgba(255,255,255,0.58));
-            -webkit-backdrop-filter: blur(16px) saturate(160%);
-            backdrop-filter: blur(16px) saturate(160%);
-            border: 1.5px solid rgba(255,255,255,0.95);
-            box-shadow: 0 12px 32px rgba(14,88,128,0.14), 0 2px 6px rgba(15,23,42,0.06), inset 0 1px 0 #fff;
-            border-radius: 36px;
-            padding: 36px 34px 30px;
-            position: relative;
-            transition: box-shadow 0.3s ease;
-        }
-        .card:hover {
-            box-shadow: 0 20px 50px rgba(14,88,128,0.20), 0 4px 10px rgba(15,23,42,0.08), inset 0 1px 0 #fff;
-        }
+    /* ---------- HNB FINANCE LOGO (with popup) ---------- */
+    .hnb-logo-wrap{ position: relative; display: inline-block; z-index: 50; }
+    .hnb-logo{
+        display: inline-flex; align-items: center; gap: 2px;
+        padding: 8px 18px 8px 16px; border-radius: 13px;
+        background: linear-gradient(150deg, rgba(255,255,255,0.96), rgba(240,248,255,0.88));
+        border: 1.5px solid rgba(255,255,255,0.98);
+        box-shadow: 0 10px 24px rgba(14,88,128,0.18), 0 2px 5px rgba(15,23,42,0.06), inset 0 1px 0 #fff;
+        line-height: 1; position: relative; isolation: isolate; overflow: hidden;
+        cursor: pointer; user-select: none;
+        transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+    }
+    .hnb-logo:hover{
+        transform: translateY(-1px); filter: brightness(1.03);
+        box-shadow: 0 14px 30px rgba(14,88,128,0.24), 0 3px 8px rgba(15,23,42,0.10), inset 0 1px 0 #fff;
+    }
+    .hnb-logo::before{
+        content: ""; position: absolute; inset: 0 0 50% 0;
+        background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0));
+        pointer-events: none; z-index: -1;
+    }
+    .hnb-logo .hnb-part{ color: #1676aa; font-weight: 900; font-size: 1.45rem; letter-spacing: -0.6px; text-shadow: 0 1px 0 rgba(255,255,255,0.9); }
+    .hnb-logo .fin-part{ color: #6fa83a; font-weight: 800; font-size: 0.85rem; letter-spacing: 2.4px; margin-left: 8px; padding-left: 9px; border-left: 2px solid #dbe6ef; text-shadow: 0 1px 0 rgba(255,255,255,0.9); }
 
-        /* ============ HEADER ============ */
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 4px;
-            gap: 12px;
-        }
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            min-width: 0;
-        }
+    .logo-pop{
+        position: absolute; top: calc(100% + 12px); left: 0;
+        z-index: 1000; width: 310px; max-width: calc(100vw - 24px);
+        padding: 14px 14px 12px; border-radius: 22px;
+        background: linear-gradient(150deg, rgba(255,255,255,0.94), rgba(232,243,252,0.85));
+        -webkit-backdrop-filter: blur(18px) saturate(170%);
+        backdrop-filter: blur(18px) saturate(170%);
+        border: 1.5px solid rgba(255,255,255,0.98);
+        box-shadow: 0 22px 54px rgba(14,88,128,0.28), 0 4px 12px rgba(15,23,42,0.10), inset 0 1px 0 #fff;
+        opacity: 0; visibility: hidden; pointer-events: none;
+        transform: translateY(-8px) scale(0.96);
+        transform-origin: top left;
+        transition: opacity .2s ease, transform .22s cubic-bezier(.2,.9,.3,1.2), visibility 0s linear .22s;
+    }
+    .logo-pop.show{ opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0) scale(1); transition: opacity .2s ease, transform .22s cubic-bezier(.2,.9,.3,1.2), visibility 0s; }
+    .logo-pop::before{
+        content: ""; position: absolute; top: -7px; left: 22px; width: 14px; height: 14px;
+        background: rgba(255,255,255,0.96); border-left: 1.5px solid rgba(255,255,255,0.98); border-top: 1.5px solid rgba(255,255,255,0.98);
+        transform: rotate(45deg); border-radius: 3px 0 0 0;
+    }
+    .lp-head{ text-align: center; font-size: 11px; font-weight: 800; letter-spacing: 2px; color: #1676aa; text-transform: uppercase; margin: 0 0 10px 0; }
+    .lp-head span{ color: #6fa83a; }
+    .lp-opt{
+        position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; gap: 12px;
+        padding: 11px 14px; border-radius: 16px; text-decoration: none; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+        border: 1.5px solid rgba(255,255,255,0.62); box-shadow: 0 8px 20px rgba(14,88,128,0.28), inset 0 1.5px 0 rgba(255,255,255,0.75), inset 0 -10px 16px rgba(255,255,255,0.08);
+        transition: transform .18s ease, filter .18s ease, box-shadow .18s ease; cursor: pointer;
+    }
+    .lp-opt + .lp-opt{ margin-top: 10px; }
+    .lp-opt::before{ content: ""; position: absolute; left: 0; right: 0; top: 0; height: 50%; background: linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.03)); border-radius: inherit; border-bottom-left-radius: 60% 28%; border-bottom-right-radius: 60% 28%; pointer-events: none; z-index: -1; }
+    .lp-web{ background: linear-gradient(150deg,rgba(255,255,255,0.24),rgba(255,255,255,0) 60%), linear-gradient(160deg,rgba(22,118,170,0.96),rgba(10,84,128,0.92)); }
+    .lp-call{ background: linear-gradient(150deg,rgba(255,255,255,0.26),rgba(255,255,255,0) 60%), linear-gradient(160deg,rgba(122,184,62,0.97),rgba(70,128,36,0.94)); box-shadow: 0 8px 20px rgba(70,128,36,0.32), inset 0 1.5px 0 rgba(255,255,255,0.75), inset 0 -10px 16px rgba(255,255,255,0.08); }
+    .lp-opt:hover{ transform: translateY(-2px); filter: brightness(1.08) saturate(1.1); }
+    .lp-opt:active{ transform: translateY(0); filter: brightness(0.97); }
+    .lp-ico{ position: relative; flex: 0 0 42px; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; font-size: 22px; border-radius: 13px; background: rgba(255,255,255,0.24); border: 1px solid rgba(255,255,255,0.55); box-shadow: inset 0 1px 0 rgba(255,255,255,0.65); }
+    .lp-txt{ display: flex; flex-direction: column; min-width: 0; line-height: 1.15; }
+    .lp-lbl{ font-size: 10px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; opacity: .92; }
+    .lp-main{ font-size: 17px; font-weight: 800; letter-spacing: .3px; margin-top: 3px; white-space: nowrap; }
+    .lp-go{ margin-left: auto; font-size: 22px; font-weight: 800; opacity: .9; transition: transform .18s ease; }
+    .lp-opt:hover .lp-go{ transform: translateX(3px); }
 
-        /* ============ HNB FINANCE LOGO (with popup) ============ */
-        .hnb-logo-wrap{ position: relative; display: inline-block; flex-shrink: 0; }
-        .hnb-logo{
-            display: inline-flex; align-items: center; gap: 2px;
-            padding: 7px 16px 7px 14px; border-radius: 13px;
-            background: linear-gradient(150deg, rgba(255,255,255,0.96), rgba(240,248,255,0.88));
-            border: 1.5px solid rgba(255,255,255,0.98);
-            box-shadow: 0 10px 24px rgba(14,88,128,0.18), 0 2px 5px rgba(15,23,42,0.06), inset 0 1px 0 #fff;
-            line-height: 1; position: relative; isolation: isolate; overflow: hidden;
-            cursor: pointer; user-select: none;
-            transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
-        }
-        .hnb-logo:hover{
-            transform: translateY(-1px); filter: brightness(1.03);
-            box-shadow: 0 14px 30px rgba(14,88,128,0.24), 0 3px 8px rgba(15,23,42,0.10), inset 0 1px 0 #fff;
-        }
-        .hnb-logo::before{
-            content: ""; position: absolute; inset: 0 0 50% 0;
-            background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0));
-            pointer-events: none; z-index: -1;
-        }
-        .hnb-logo .hnb-part{
-            color: #1676aa; font-weight: 900; font-size: 1.25rem;
-            letter-spacing: -0.5px; text-shadow: 0 1px 0 rgba(255,255,255,0.9);
-        }
-        .hnb-logo .fin-part{
-            color: #6fa83a; font-weight: 800; font-size: 0.72rem;
-            letter-spacing: 2px; margin-left: 7px; padding-left: 8px;
-            border-left: 2px solid #dbe6ef; text-shadow: 0 1px 0 rgba(255,255,255,0.9);
-        }
+    /* ---------- Header ---------- */
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 26px; flex-wrap: wrap; }
+    
+    .badge {
+      font-size: 12px; font-weight: 700; background: rgba(22, 118, 170, 0.09); color: var(--ocean);
+      padding: 7px 13px; border-radius: 99px; border: 1px solid rgba(22, 118, 170, 0.2); white-space: nowrap;
+    }
+    .badge .date { color: var(--navy); font-weight: 800; }
 
-        /* ============ LOGO POPUP ============ */
-        .logo-pop{
-            position: absolute; top: calc(100% + 12px); left: 0;
-            z-index: 1000; width: 310px; max-width: calc(100vw - 24px);
-            padding: 14px 14px 12px; border-radius: 22px;
-            background: linear-gradient(150deg, rgba(255,255,255,0.94), rgba(232,243,252,0.85));
-            -webkit-backdrop-filter: blur(18px) saturate(170%);
-            backdrop-filter: blur(18px) saturate(170%);
-            border: 1.5px solid rgba(255,255,255,0.98);
-            box-shadow: 0 22px 54px rgba(14,88,128,0.28), 0 4px 12px rgba(15,23,42,0.10), inset 0 1px 0 #fff;
-            opacity: 0; visibility: hidden; pointer-events: none;
-            transform: translateY(-8px) scale(0.96);
-            transform-origin: top left;
-            transition: opacity .2s ease, transform .22s cubic-bezier(.2,.9,.3,1.2), visibility 0s linear .22s;
-        }
-        .logo-pop.show{
-            opacity: 1; visibility: visible; pointer-events: auto;
-            transform: translateY(0) scale(1);
-            transition: opacity .2s ease, transform .22s cubic-bezier(.2,.9,.3,1.2), visibility 0s;
-        }
-        .logo-pop::before{
-            content: ""; position: absolute; top: -7px; left: 22px;
-            width: 14px; height: 14px;
-            background: rgba(255,255,255,0.96);
-            border-left: 1.5px solid rgba(255,255,255,0.98);
-            border-top: 1.5px solid rgba(255,255,255,0.98);
-            transform: rotate(45deg); border-radius: 3px 0 0 0;
-        }
-        .lp-head{
-            text-align: center; font-size: 11px; font-weight: 800; letter-spacing: 2px;
-            color: #1676aa; text-transform: uppercase; margin: 0 0 10px 0;
-        }
-        .lp-head span{ color: #6fa83a; }
-        .lp-opt{
-            position: relative; isolation: isolate; overflow: hidden;
-            display: flex; align-items: center; gap: 12px;
-            padding: 11px 14px; border-radius: 16px; text-decoration: none; color: #fff;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.35);
-            border: 1.5px solid rgba(255,255,255,0.62);
-            box-shadow: 0 8px 20px rgba(14,88,128,0.28), inset 0 1.5px 0 rgba(255,255,255,0.75), inset 0 -10px 16px rgba(255,255,255,0.08);
-            transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
-            cursor: pointer;
-        }
-        .lp-opt + .lp-opt{ margin-top: 10px; }
-        .lp-opt::before{
-            content: ""; position: absolute; left: 0; right: 0; top: 0; height: 50%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.03));
-            border-radius: inherit; border-bottom-left-radius: 60% 28%; border-bottom-right-radius: 60% 28%;
-            pointer-events: none; z-index: -1;
-        }
-        .lp-web{
-            background:
-                linear-gradient(150deg,rgba(255,255,255,0.24),rgba(255,255,255,0) 60%),
-                linear-gradient(160deg,rgba(22,118,170,0.96),rgba(10,84,128,0.92));
-        }
-        .lp-call{
-            background:
-                linear-gradient(150deg,rgba(255,255,255,0.26),rgba(255,255,255,0) 60%),
-                linear-gradient(160deg,rgba(122,184,62,0.97),rgba(70,128,36,0.94));
-            box-shadow: 0 8px 20px rgba(70,128,36,0.32), inset 0 1.5px 0 rgba(255,255,255,0.75), inset 0 -10px 16px rgba(255,255,255,0.08);
-        }
-        .lp-opt:hover{ transform: translateY(-2px); filter: brightness(1.08) saturate(1.1); }
-        .lp-opt:active{ transform: translateY(0); filter: brightness(0.97); }
-        .lp-ico{
-            position: relative; flex: 0 0 42px; width: 42px; height: 42px;
-            display: flex; align-items: center; justify-content: center; font-size: 22px;
-            border-radius: 13px; background: rgba(255,255,255,0.24);
-            border: 1px solid rgba(255,255,255,0.55);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.65);
-        }
-        .lp-call .lp-ico::after{
-            content: ""; position: absolute; inset: -2px; border-radius: 15px;
-            border: 2px solid rgba(255,255,255,0.7);
-            animation: lpRing 1.6s ease-in-out infinite;
-        }
-        @keyframes lpRing{ 0%{transform:scale(1);opacity:.9} 100%{transform:scale(1.45);opacity:0} }
-        .lp-call .lp-ico span{
-            display: inline-block; animation: lpWiggle 2.2s ease-in-out infinite;
-            transform-origin: 50% 60%;
-        }
-        @keyframes lpWiggle{
-            0%,70%,100%{transform:rotate(0)} 75%{transform:rotate(-14deg)}
-            80%{transform:rotate(12deg)} 85%{transform:rotate(-10deg)} 90%{transform:rotate(8deg)}
-        }
-        .lp-txt{ display: flex; flex-direction: column; min-width: 0; line-height: 1.15; }
-        .lp-lbl{ font-size: 10px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; opacity: .92; }
-        .lp-main{ font-size: 16px; font-weight: 800; letter-spacing: .3px; margin-top: 3px; white-space: nowrap; }
-        .lp-go{ margin-left: auto; font-size: 22px; font-weight: 800; opacity: .9; transition: transform .18s ease; }
-        .lp-opt:hover .lp-go{ transform: translateX(3px); }
+    .home-btn {
+      font-weight: 700; font-size: 13px; color: white; padding: 9px 18px; border-radius: 99px; border: none; cursor: pointer;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 6px; position: relative; isolation: isolate; overflow: hidden;
+      background: linear-gradient(150deg, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0.05) 42%, rgba(255,255,255,0) 100%), linear-gradient(160deg, rgba(22,118,170,0.95), rgba(10,84,128,0.90));
+      border: 1.5px solid rgba(255,255,255,0.62);
+      box-shadow: 0 8px 20px rgba(14,88,128,0.28), inset 0 1.5px 0 rgba(255,255,255,0.75);
+      transition: transform .18s ease, filter .18s ease;
+    }
+    .home-btn:hover { transform: translateY(-2px); filter: brightness(1.08) saturate(1.1); }
+    .home-btn:active { transform: translateY(0); }
+    .home-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
-        /* ============ TITLE ============ */
-        .title-wrap{ min-width: 0; }
-        .title {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(90deg, #1676aa, #6fa83a, #1676aa);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shimmer 4s linear infinite;
-            white-space: nowrap;
-        }
-        @keyframes shimmer{ to{ background-position: 200% center; } }
-        .title .highlight{ color: #6fa83a; -webkit-text-fill-color: #6fa83a; }
+    .hero-title { font-weight: 800; font-size: clamp(24px, 4vw, 34px); line-height: 1.25; margin: 0 0 8px; color: var(--navy); }
+    .hero-sub { font-size: 15px; color: rgba(10, 38, 71, 0.65); margin: 0 0 16px; max-width: 640px; line-height: 1.6; }
+    
+    .effective-note {
+      display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600;
+      background: rgba(111, 168, 58, 0.10); color: #4a7d27; border: 1px solid rgba(111, 168, 58, 0.3);
+      padding: 7px 14px; border-radius: 99px; margin-bottom: 26px;
+    }
+    .effective-note .dot-live { width: 8px; height: 8px; border-radius: 50%; background: var(--leaf); }
 
-        /* ============ HOME BUTTON (BLUE GLASS) ============ */
-        .home-btn{
-            isolation: isolate; overflow: hidden;
-            color: #fff !important; text-decoration: none;
-            padding: 10px 18px; border-radius: 40px;
-            font-size: 13px; font-weight: 700;
-            display: inline-flex; align-items: center; gap: 7px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.35);
-            background:
-                linear-gradient(150deg, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0.05) 42%, rgba(255,255,255,0) 100%),
-                linear-gradient(160deg, rgba(22,118,170,0.95), rgba(10,84,128,0.90));
-            -webkit-backdrop-filter: blur(14px) saturate(170%);
-            backdrop-filter: blur(14px) saturate(170%);
-            border: 1.5px solid rgba(255,255,255,0.62);
-            box-shadow:
-                0 8px 20px rgba(14,88,128,0.28),
-                0 2px 5px rgba(15,23,42,0.16),
-                inset 0 1.5px 0 rgba(255,255,255,0.75),
-                inset 0 -10px 16px rgba(255,255,255,0.08);
-            transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-            flex-shrink: 0;
-        }
-        .home-btn::before{
-            content: ""; position: absolute; left: 0; right: 0; top: 0; height: 52%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.03));
-            border-radius: inherit; border-bottom-left-radius: 60% 28%; border-bottom-right-radius: 60% 28%;
-            pointer-events: none; z-index: -1;
-        }
-        .home-btn:hover{
-            filter: brightness(1.08) saturate(1.1);
-            transform: translateY(-2px);
-            box-shadow:
-                0 14px 30px rgba(14,88,128,0.36), 0 3px 8px rgba(15,23,42,0.18),
-                inset 0 1.5px 0 rgba(255,255,255,0.85), inset 0 -10px 16px rgba(255,255,255,0.10);
-        }
-        .home-btn:active{ transform: translateY(0); }
-        .home-btn svg{ width: 16px; height: 16px; fill: currentColor; }
+    /* ---------- Main Layout ---------- */
+    .grid { display: grid; grid-template-columns: 1fr; gap: 22px; align-items: start; max-width: 800px; margin: 0 auto; }
 
-        .subtitle {
-            font-size: 13.5px;
-            color: #5d6b82;
-            margin: 12px 0 24px;
-            letter-spacing: 0.2px;
-            font-weight: 500;
-        }
+    /* ---------- Form Card ---------- */
+    .form-card {
+      background: linear-gradient(150deg, rgba(255,255,255,0.86), rgba(255,255,255,0.58));
+      -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
+      border: 1.5px solid rgba(255,255,255,0.95);
+      border-radius: 24px; padding: 28px 28px 26px;
+      box-shadow: 0 12px 32px rgba(14,88,128,0.14), 0 2px 6px rgba(15,23,42,0.06), inset 0 1px 0 #fff;
+    }
+    
+    .field { margin-bottom: 22px; }
+    .field label { display: block; font-size: 13px; font-weight: 700; color: var(--hnb-mu); margin-bottom: 9px; text-transform: uppercase; letter-spacing: 0.5px; }
+    
+    .amount-input-wrap {
+      display: flex; align-items: center; border: 1.5px solid rgba(143,163,184,0.5); border-radius: 14px; padding: 0 6px 0 16px;
+      background: linear-gradient(150deg, rgba(255,255,255,0.95), rgba(255,255,255,0.72));
+      box-shadow: 0 3px 10px rgba(14,88,128,0.10), inset 0 1px 3px rgba(14,88,128,0.08); transition: all .2s;
+    }
+    .amount-input-wrap:focus-within { border-color: var(--ocean); box-shadow: 0 0 0 4px rgba(22,118,170,0.20); }
+    .amount-input-wrap span { font-weight: 800; color: var(--ocean); font-size: 18px; }
+    .amount-input-wrap input {
+      border: none; outline: none; background: transparent; font-size: 24px; font-weight: 800;
+      padding: 14px 10px; width: 100%; color: var(--navy); font-family: 'Inter', sans-serif;
+    }
+    
+    .quick-amounts { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+    .chip {
+      border: 1.5px solid rgba(143,163,184,0.5); background: linear-gradient(150deg, rgba(255,255,255,0.92), rgba(236,246,252,0.72));
+      padding: 7px 14px; border-radius: 99px; font-size: 13px; font-weight: 700; color: var(--navy); cursor: pointer; transition: .15s;
+      box-shadow: 0 2px 6px rgba(14,88,128,0.08), inset 0 1px 0 #fff;
+    }
+    .chip:hover { border-color: var(--ocean); color: var(--ocean); background: #fff; transform: translateY(-1px); }
 
-        /* ============ INPUT ============ */
-        .input-wrapper {
-            position: relative;
-            background: linear-gradient(150deg, rgba(255,255,255,0.95), rgba(255,255,255,0.72));
-            border-radius: 60px;
-            padding: 4px 4px 4px 22px;
-            display: flex;
-            align-items: center;
-            border: 1.5px solid rgba(143,163,184,0.5);
-            box-shadow: 0 3px 10px rgba(14,88,128,0.10), inset 0 1px 3px rgba(14,88,128,0.08);
-            transition: all 0.25s ease;
-        }
-        .input-wrapper:focus-within {
-            border-color: #1676aa;
-            box-shadow: 0 0 0 4px rgba(22,118,170,0.20), 0 3px 10px rgba(14,88,128,0.12);
-            transform: translateY(-1px);
-        }
-        .currency-label {
-            font-weight: 800; font-size: 18px; color: #1676aa;
-            letter-spacing: -0.3px; padding-right: 4px;
-            display: flex; align-items: center; gap: 6px;
-            flex-shrink: 0;
-        }
-        .currency-label .lkr-badge {
-            font-size: 11px; font-weight: 800; color: #fff;
-            background: linear-gradient(160deg, rgba(22,118,170,0.95), rgba(10,84,128,0.90));
-            padding: 3px 10px; border-radius: 30px;
-            letter-spacing: 0.5px;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
-        }
-        #amountInput {
-            flex: 1; border: none; padding: 15px 0;
-            font-size: 22px; font-weight: 700; color: #14213d;
-            background: transparent; outline: none;
-            font-family: 'Inter', sans-serif;
-            min-width: 60px; letter-spacing: 0.3px;
-        }
-        #amountInput::placeholder{
-            color: #8fa3b8; font-weight: 400; font-size: 18px; letter-spacing: 0;
-        }
+    .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .seg button {
+      border: 1.5px solid rgba(143,163,184,0.5); background: linear-gradient(150deg, rgba(255,255,255,0.92), rgba(236,246,252,0.72));
+      padding: 12px 10px; border-radius: 12px; font-size: 14px; font-weight: 700; color: var(--hnb-mu); cursor: pointer; transition: .2s;
+      box-shadow: 0 2px 6px rgba(14,88,128,0.08), inset 0 1px 0 #fff;
+    }
+    .seg button.active {
+      border-color: var(--hnb-blue); color: #fff; background: linear-gradient(160deg, var(--hnb-blue), var(--hnb-dark));
+      box-shadow: 0 4px 12px rgba(22,118,170,0.30), inset 0 1px 0 rgba(255,255,255,0.4);
+    }
 
-        /* ============ CONVERT BUTTON (BLUE GLASS) ============ */
-        .convert-btn{
-            position: relative; isolation: isolate; overflow: hidden;
-            color: #fff; border: 0;
-            font-weight: 700; font-size: 14.5px;
-            padding: 12px 26px; border-radius: 40px;
-            cursor: pointer; white-space: nowrap;
-            letter-spacing: 0.3px;
-            font-family: 'Inter', sans-serif;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.35);
-            background:
-                linear-gradient(150deg, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0.05) 42%, rgba(255,255,255,0) 100%),
-                linear-gradient(160deg, rgba(22,118,170,0.95), rgba(10,84,128,0.90));
-            border: 1.5px solid rgba(255,255,255,0.62);
-            box-shadow:
-                0 8px 20px rgba(14,88,128,0.28),
-                0 2px 5px rgba(15,23,42,0.16),
-                inset 0 1.5px 0 rgba(255,255,255,0.75),
-                inset 0 -10px 16px rgba(255,255,255,0.08);
-            transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-            flex-shrink: 0;
-        }
-        .convert-btn::before{
-            content: ""; position: absolute; left: 0; right: 0; top: 0; height: 52%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.03));
-            border-radius: inherit; border-bottom-left-radius: 60% 28%; border-bottom-right-radius: 60% 28%;
-            pointer-events: none; z-index: -1;
-        }
-        .convert-btn:hover{
-            filter: brightness(1.08) saturate(1.1);
-            transform: translateY(-2px);
-            box-shadow:
-                0 14px 30px rgba(14,88,128,0.36), 0 3px 8px rgba(15,23,42,0.18),
-                inset 0 1.5px 0 rgba(255,255,255,0.85), inset 0 -10px 16px rgba(255,255,255,0.10);
-        }
-        .convert-btn:active{ transform: translateY(0); }
+    .period-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; }
+    .period-grid button {
+      border: 1.5px solid rgba(143,163,184,0.5); background: linear-gradient(150deg, rgba(255,255,255,0.92), rgba(236,246,252,0.72));
+      padding: 10px 4px; border-radius: 12px; cursor: pointer; text-align: center; transition: .15s;
+      box-shadow: 0 2px 6px rgba(14,88,128,0.08), inset 0 1px 0 #fff;
+    }
+    .period-grid button .m { font-weight: 800; font-size: 13.5px; color: var(--navy); display: block; margin-bottom: 2px; }
+    .period-grid button .r { font-size: 11px; color: var(--hnb-green); font-weight: 800; display: block; }
+    .period-grid button.active { border-color: var(--hnb-green); background: rgba(111, 168, 58, 0.10); box-shadow: inset 0 0 0 1px var(--hnb-green); }
+    .period-grid button.active .m { color: var(--hnb-green); }
+    .period-grid button:disabled { opacity: 0.4; cursor: not-allowed; background: #f1f5f9; box-shadow: none; }
+    .period-grid button:disabled .r { color: #94a3b8; }
 
-        /* ============ OUTPUT ============ */
-        .output-area {
-            margin-top: 24px;
-            background: linear-gradient(150deg, rgba(255,255,255,0.94), rgba(246,251,255,0.78));
-            border: 1.5px solid rgba(143,163,184,0.5);
-            border-radius: 24px;
-            padding: 24px 26px;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 4px 14px rgba(14,88,128,0.08), inset 0 1px 0 #fff;
-            transition: all 0.3s ease;
-        }
-        .output-area:has(.result:not(.placeholder)) {
-            border-color: #1676aa;
-            background: linear-gradient(150deg, rgba(255,255,255,0.96), rgba(240,250,255,0.85));
-            box-shadow: 0 6px 20px rgba(14,88,128,0.14), inset 0 1px 0 #fff;
-        }
-        .result {
-            font-size: 20px; line-height: 1.55; color: #14213d;
-            font-weight: 600; word-break: break-word; width: 100%;
-        }
-        .result .lkr-output {
-            display: inline-block;
-            background: linear-gradient(160deg, rgba(22,118,170,0.95), rgba(10,84,128,0.90));
-            color: #fff;
-            padding: 3px 12px; border-radius: 20px;
-            font-size: 12px; font-weight: 800;
-            letter-spacing: 0.5px;
-            margin-right: 8px;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
-            vertical-align: middle;
-        }
-        .result.placeholder {
-            color: #8fa3b8; font-weight: 500; font-size: 17px;
-        }
-        .result.placeholder .lkr-output {
-            background: rgba(143,163,184,0.30);
-            color: #fff;
-        }
-        .result:not(.placeholder) {
-            animation: fadeSlide 0.25s ease;
-        }
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .divider { height: 1px; background: var(--hnb-bd); margin: 24px 0; }
 
-        /* ============ FOOTER ============ */
-        .footer {
-            margin-top: 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12.5px;
-            color: #5d6b82;
-            padding: 0 4px;
-            font-weight: 500;
-        }
-        .footer .hint { display: flex; align-items: center; gap: 6px; }
-        .badge {
-            background: linear-gradient(150deg, rgba(255,255,255,0.92), rgba(236,246,252,0.72));
-            border: 1.5px solid rgba(143,163,184,0.5);
-            padding: 3px 12px; border-radius: 30px;
-            font-size: 10.5px; font-weight: 800;
-            color: #1676aa; letter-spacing: 0.6px;
-            text-transform: uppercase;
-            box-shadow: 0 2px 6px rgba(14,88,128,0.08), inset 0 1px 0 #fff;
-        }
+    /* ---------- Results ---------- */
+    .results { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 520px) { .results { grid-template-columns: 1fr; } }
+    
+    .result-box { 
+      border-radius: 16px; padding: 18px; background: linear-gradient(150deg, rgba(255,255,255,0.94), rgba(246,251,255,0.78)); 
+      border: 1.5px solid rgba(143,163,184,0.5); box-shadow: 0 4px 12px rgba(14,88,128,0.08);
+    }
+    .result-box.primary { 
+      background: linear-gradient(150deg, rgba(22,118,170,0.95), rgba(10,84,128,0.90)); 
+      border: 1.5px solid rgba(255,255,255,0.62); box-shadow: 0 8px 20px rgba(14,88,128,0.28);
+    }
+    .rb-label { font-size: 12.5px; color: var(--hnb-mu); font-weight: 700; letter-spacing: 0.02em; margin-bottom: 6px; text-transform: uppercase; }
+    .result-box.primary .rb-label { color: rgba(255, 255, 255, 0.85); }
+    .rb-value { font-weight: 800; font-size: 26px; color: var(--navy); }
+    .result-box.primary .rb-value { color: white; font-size: 30px; }
+    .rb-sub { font-size: 13px; color: var(--hnb-mu); margin-top: 6px; font-weight: 500; }
+    .result-box.primary .rb-sub { color: rgba(255, 255, 255, 0.75); }
 
-        /* ============ EXAMPLE BUTTONS ============ */
-        .examples {
-            margin-top: 14px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-        }
-        .example-btn {
-            background: linear-gradient(150deg, rgba(255,255,255,0.92), rgba(236,246,252,0.72));
-            border: 1.5px solid rgba(143,163,184,0.5);
-            padding: 7px 16px; border-radius: 30px;
-            font-size: 12.5px; font-weight: 700;
-            color: #14213d; cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 6px rgba(14,88,128,0.08), inset 0 1px 0 #fff;
-        }
-        .example-btn:hover{
-            color: #fff;
-            background:
-                linear-gradient(150deg, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0.05) 42%, rgba(255,255,255,0) 100%),
-                linear-gradient(160deg, rgba(22,118,170,0.95), rgba(10,84,128,0.90));
-            border-color: rgba(255,255,255,0.62);
-            transform: translateY(-1px);
-            box-shadow: 0 6px 14px rgba(14,88,128,0.26), inset 0 1px 0 rgba(255,255,255,0.7);
-            text-shadow: 0 1px 2px rgba(0,0,0,0.25);
-        }
-        .example-btn:active{ transform: scale(0.97); }
+    .rate-pill {
+      margin-top: 22px; display: flex; align-items: center; gap: 12px;
+      background: rgba(255, 201, 77, 0.15); border: 1.5px solid rgba(255, 201, 77, 0.4);
+      padding: 14px 16px; border-radius: 14px;
+    }
+    .rate-pill .icon { font-size: 20px; }
+    .rate-pill .txt { font-size: 13.5px; color: var(--hnb-tx); line-height: 1.5; font-weight: 500; }
+    .rate-pill b { color: var(--navy); font-weight: 800; }
 
-        /* ============ MOBILE ============ */
-        @media (max-width: 560px) {
-            body { padding: 12px; }
-            .card{ padding: 24px 18px 22px; border-radius: 26px; }
-            .header{ flex-wrap: wrap; gap: 10px; }
-            .header-left{ flex-wrap: wrap; gap: 8px; }
-            .hnb-logo{ padding: 6px 12px 6px 10px; }
-            .hnb-logo .hnb-part{ font-size: 1.05rem; }
-            .hnb-logo .fin-part{ font-size: .62rem; letter-spacing: 1.6px; margin-left: 5px; padding-left: 6px; }
-            .title{ font-size: 19px; }
-            .home-btn{ padding: 8px 14px; font-size: 12px; border-radius: 30px; }
-            .home-btn svg{ width: 14px; height: 14px; }
-            .subtitle{ font-size: 12.5px; margin: 10px 0 18px; }
-            .input-wrapper{
-                flex-wrap: wrap; background: transparent; padding: 0;
-                border: none; box-shadow: none; gap: 10px; border-radius: 0;
-            }
-            .input-wrapper:focus-within{ transform: none; box-shadow: none; }
-            .currency-label{ display: none; }
-            #amountInput{
-                background: linear-gradient(150deg, rgba(255,255,255,0.95), rgba(255,255,255,0.72));
-                padding: 15px 20px; border-radius: 40px;
-                border: 1.5px solid rgba(143,163,184,0.5);
-                width: 100%; font-size: 19px; text-align: center;
-                box-shadow: 0 3px 10px rgba(14,88,128,0.10), inset 0 1px 3px rgba(14,88,128,0.08);
-            }
-            #amountInput:focus{
-                border-color: #1676aa;
-                box-shadow: 0 0 0 4px rgba(22,118,170,0.20), 0 3px 10px rgba(14,88,128,0.12);
-            }
-            .convert-btn{ width: 100%; justify-content: center; padding: 14px; font-size: 15px; border-radius: 40px; }
-            .output-area{ padding: 18px 18px; min-height: 80px; border-radius: 20px; }
-            .result{ font-size: 17px; }
-            .result .lkr-output{ font-size: 11px; padding: 2px 10px; }
-            .footer{ flex-direction: column; gap: 8px; align-items: flex-start; font-size: 12px; }
-            .example-btn{ font-size: 12px; padding: 6px 13px; }
-            .logo-pop{ width: 280px; padding: 12px; border-radius: 18px; }
-            .lp-main{ font-size: 15px; }
-            .lp-ico{ flex: 0 0 38px; width: 38px; height: 38px; font-size: 20px; }
-        }
-    </style>
+    .disclaimer { margin-top: 20px; font-size: 11.5px; color: var(--hnb-mu); line-height: 1.6; font-weight: 500; }
+
+    footer { margin-top: 40px; text-align: center; font-size: 12.5px; color: var(--hnb-mu); font-weight: 600; }
+
+    /* ---------- Mobile Adjustments ---------- */
+    @media (max-width: 768px) {
+      .page { padding: 16px 14px 40px; }
+      .topbar { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .topbar .badge { order: 3; white-space: normal; text-align: center; width: 100%; }
+      .topbar .home-btn { position: absolute; top: 16px; right: 14px; padding: 8px 14px; font-size: 12px; }
+      .form-card { padding: 20px 18px; border-radius: 20px; }
+      .period-grid { grid-template-columns: repeat(3, 1fr); }
+      .seg { grid-template-columns: 1fr; }
+      .hnb-logo { padding: 6px 12px 6px 10px; }
+      .hnb-logo .hnb-part { font-size: 1.2rem; }
+      .hnb-logo .fin-part { font-size: 0.72rem; letter-spacing: 2px; margin-left: 6px; padding-left: 7px; }
+      .logo-pop { width: 290px; }
+    }
+  </style>
 </head>
 <body>
+  <div class="page">
 
-<div class="container">
-    <div class="card">
+    <!-- Topbar -->
+    <div class="topbar" style="position: relative;">
+      
+      <!-- HNB Logo (with popup) -->
+      <div class="hnb-logo-wrap" id="logoWrap">
+          <div class="hnb-logo" id="logoBtn" title="Click for website &amp; hotline">
+              <span class="hnb-part">HNB</span>
+              <span class="fin-part">FINANCE</span>
+          </div>
+          
+          <div class="logo-pop" id="logoPop" role="dialog" aria-label="HNB Finance quick links">
+              <div class="lp-head">HNB <span>FINANCE</span></div>
+              <a class="lp-opt lp-web" href="https://www.hnbfinance.lk/" target="_blank" rel="noopener noreferrer">
+                  <div class="lp-ico">🌐</div>
+                  <div class="lp-txt">
+                      <span class="lp-lbl">Website</span>
+                      <span class="lp-main">www.hnbfinance.lk</span>
+                  </div>
+                  <span class="lp-go">→</span>
+              </a>
+              <a class="lp-opt lp-call" href="tel:+94114700700">
+                  <div class="lp-ico"><span>📞</span></div>
+                  <div class="lp-txt">
+                      <span class="lp-lbl">Hotline</span>
+                      <span class="lp-main">+94 11 4 700 700</span>
+                  </div>
+                  <span class="lp-go">→</span>
+              </a>
+          </div>
+      </div>
 
-        <!-- Header -->
-        <div class="header">
-            <div class="header-left">
-
-                <!-- HNB Logo (with popup) -->
-                <div class="hnb-logo-wrap" id="logoWrap">
-                    <div class="hnb-logo" id="logoBtn" title="Click for website &amp; hotline">
-                        <span class="hnb-part">HNB</span>
-                        <span class="fin-part">FINANCE</span>
-                    </div>
-
-                    <div class="logo-pop" id="logoPop" role="dialog" aria-label="HNB Finance quick links">
-                        <div class="lp-head">HNB <span>FINANCE</span></div>
-                        <a class="lp-opt lp-web" href="https://www.hnbfinance.lk/" target="_blank" rel="noopener noreferrer">
-                            <div class="lp-ico">🌐</div>
-                            <div class="lp-txt">
-                                <span class="lp-lbl">Website</span>
-                                <span class="lp-main">www.hnbfinance.lk</span>
-                            </div>
-                            <span class="lp-go">→</span>
-                        </a>
-                        <a class="lp-opt lp-call" href="tel:+94114700700">
-                            <div class="lp-ico"><span>📞</span></div>
-                            <div class="lp-txt">
-                                <span class="lp-lbl">Hotline</span>
-                                <span class="lp-main">+94 11 4 700 700</span>
-                            </div>
-                            <span class="lp-go">→</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="title-wrap">
-                    <h1 class="title">LKR to <span class="highlight">Words</span></h1>
-                </div>
-            </div>
-
-            <a href="https://gmaphnbf.github.io/HNBFGMAP/" class="home-btn" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24">
-                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-                </svg>
-                Home
-            </a>
-        </div>
-        <p class="subtitle">Convert Sri Lankan Rupees to English words</p>
-
-        <!-- Input -->
-        <div class="input-wrapper">
-            <span class="currency-label">
-                Rs.
-                <span class="lkr-badge">LKR</span>
-            </span>
-            <input type="text" id="amountInput" placeholder="Enter amount..." autofocus />
-            <button class="convert-btn" id="convertBtn">Convert</button>
-        </div>
-
-        <!-- Example buttons -->
-        <div class="examples">
-            <button class="example-btn" data-amount="150000">150,000</button>
-            <button class="example-btn" data-amount="1250.75">1,250.75</button>
-            <button class="example-btn" data-amount="5000">5,000</button>
-            <button class="example-btn" data-amount="1000000">1,000,000</button>
-        </div>
-
-        <!-- Output -->
-        <div class="output-area">
-            <div class="result placeholder" id="wordOutput">
-                <span class="lkr-output">LKR</span>
-                Enter an amount to convert
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <div class="hint">
-                <span>⌨️</span> Type or click an example
-            </div>
-            <span class="badge">real-time</span>
-        </div>
-
+      <a href="https://gmaphnbf.github.io/HNBFGMAP/" class="home-btn" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        Home
+      </a>
+      <div class="badge">Fixed Deposits — <span class="date">Effective 01st October 2026</span></div>
     </div>
-</div>
 
-<script>
-    /* ==================== LOGO POPUP ==================== */
+    <h1 class="hero-title">Grow Your Savings with Confidence</h1>
+    <p class="hero-sub">Select your amount, duration, and payout method to instantly see your potential returns.</p>
+    <div class="effective-note">
+      <span class="dot-live"></span>
+      New rates effective from 01st October 2026 (HNBF/PBMD(FD&amp;S)-26-12)
+    </div>
+
+    <div class="grid">
+      <!-- FORM -->
+      <div class="form-card">
+
+        <div class="field">
+          <label>Calculation Mode</label>
+          <div class="seg" id="modeSeg">
+            <button class="active" data-val="forward">Enter Amount</button>
+            <button data-val="reverse">Find Required Deposit</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label id="amountLabel">Deposit Amount (Rs.)</label>
+          <div class="amount-input-wrap">
+            <span>Rs.</span>
+            <input type="text" inputmode="numeric" id="amountInput" value="100,000">
+          </div>
+          <div class="quick-amounts" id="quickAmounts"></div>
+        </div>
+
+        <div class="field">
+          <label>Depositor Type</label>
+          <div class="seg" id="depositorSeg">
+            <button class="active" data-val="general">General Citizen</button>
+            <button data-val="senior">Senior Citizen</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Payout Method</label>
+          <div class="seg" id="payoutSeg">
+            <button class="active" data-val="monthly">Monthly Payout</button>
+            <button data-val="maturity">At Maturity</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Duration</label>
+          <div class="period-grid" id="periodGrid"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="results">
+          <div class="result-box primary" id="heroBox" style="grid-column:1/-1;">
+            <div class="rb-label" id="heroLabel">Monthly Income</div>
+            <div class="rb-value" id="heroValue">Rs. 0</div>
+            <div class="rb-sub" id="heroSub">Deposited monthly to your account</div>
+          </div>
+          <div class="result-box">
+            <div class="rb-label">Annual Interest Rate</div>
+            <div class="rb-value" id="rateValue">0.00%</div>
+            <div class="rb-sub" id="rateSubLabel">Gross Rate</div>
+          </div>
+          <div class="result-box">
+            <div class="rb-label" id="secondLabel">Total Interest Income</div>
+            <div class="rb-value" id="secondValue">Rs. 0</div>
+            <div class="rb-sub" id="secondSub">Return over selected period</div>
+          </div>
+        </div>
+
+        <div class="rate-pill">
+          <div class="icon">💡</div>
+          <div class="txt">Senior citizens can enjoy up to <b>15.00%</b> at maturity for a 60-month duration.</div>
+        </div>
+
+        <div class="disclaimer">
+          * This calculation is for illustration purposes only. For final rates and terms, visit an HNB FINANCE branch or hnbfinance.lk. Rates are subject to change. (HNBF/PBMD(FD&amp;S)-26-12 — Effective 01st Oct 2026)
+        </div>
+      </div>
+    </div>
+
+    <footer>HNB FINANCE — hnbfinance.lk &nbsp;•&nbsp; 011 202 48 48 &nbsp;•&nbsp; Member of Sri Lanka Deposit Insurance Scheme</footer>
+  </div>
+
+  <script>
+    // ===== LOGO POPUP LOGIC =====
     (function(){
         const wrap = document.getElementById('logoWrap');
         const btn  = document.getElementById('logoBtn');
@@ -571,127 +378,216 @@
         document.addEventListener('keydown', function(e){ if (e.key === 'Escape') pop.classList.remove('show'); });
     })();
 
-    (function() {
-        // ---------- NUMBER TO WORDS (ENGLISH) ----------
-        function numberToWords(n) {
-            if (n === 0) return 'Zero';
+    // ===== UPDATED RATES (Effective 01st October 2026) =====
+    const RATES = {
+      1:  { general: { monthly: null,  monthlyNet: null,  maturity: 7.50,  maturityNet: 7.76  }, senior: null },
+      3:  { general: { monthly: 9.25,  monthlyNet: 9.65,  maturity: 9.75,  maturityNet: 10.11 }, senior: null },
+      4:  { general: { monthly: 8.00,  monthlyNet: 8.30,  maturity: 9.00,  maturityNet: 9.27  }, senior: null },
+      5:  { general: { monthly: 8.00,  monthlyNet: 8.30,  maturity: 9.00,  maturityNet: 9.24  }, senior: null },
+      6:  { general: { monthly: 8.50,  monthlyNet: 8.84,  maturity: 9.50,  maturityNet: 9.73  }, senior: null },
+      7:  { general: { monthly: 10.00, monthlyNet: 10.47, maturity: 10.50, maturityNet: 10.73 }, senior: null },
+      9:  { general: { monthly: 8.50,  monthlyNet: 8.84,  maturity: 9.50,  maturityNet: 9.61  }, senior: null },
+      12: { general: { monthly: 10.50, monthlyNet: 11.02, maturity: 11.50, maturityNet: 11.50 }, senior: { monthly: 11.00, monthlyNet: 11.57, maturity: 12.00, maturityNet: 12.00 } },
+      13: { general: { monthly: 9.00,  monthlyNet: 9.38,  maturity: 10.00, maturityNet: 9.96  }, senior: { monthly: 9.50,  monthlyNet: 9.92,  maturity: 10.50, maturityNet: 10.46 } },
+      15: { general: { monthly: 9.00,  monthlyNet: 9.38,  maturity: 10.00, maturityNet: 9.88  }, senior: { monthly: 9.50,  monthlyNet: 9.92,  maturity: 10.50, maturityNet: 10.37 } },
+      18: { general: { monthly: 9.00,  monthlyNet: 9.38,  maturity: 10.00, maturityNet: 9.77  }, senior: { monthly: 9.50,  monthlyNet: 9.92,  maturity: 10.50, maturityNet: 10.24 } },
+      24: { general: { monthly: 9.00,  monthlyNet: 9.38,  maturity: 10.00, maturityNet: 9.54  }, senior: { monthly: 9.50,  monthlyNet: 9.92,  maturity: 10.50, maturityNet: 10.00 } },
+      25: { general: { monthly: 11.00, monthlyNet: 11.57, maturity: 12.50, maturityNet: 11.75 }, senior: { monthly: 11.50, monthlyNet: 12.13, maturity: 13.00, maturityNet: 12.19 } },
+      36: { general: { monthly: 9.50,  monthlyNet: 9.92,  maturity: 10.00, maturityNet: 9.14  }, senior: { monthly: 10.00, monthlyNet: 10.47, maturity: 10.50, maturityNet: 9.56  } },
+      37: { general: { monthly: 11.50, monthlyNet: 12.13, maturity: 13.00, maturityNet: 11.55 }, senior: { monthly: 12.00, monthlyNet: 12.68, maturity: 13.50, maturityNet: 11.95 } },
+      60: { general: { monthly: 11.75, monthlyNet: 12.40, maturity: 14.50, maturityNet: 11.52 }, senior: { monthly: 12.25, monthlyNet: 12.96, maturity: 15.00, maturityNet: 11.84 } },
+    };
+    const PERIODS = [1, 3, 4, 5, 6, 7, 9, 12, 13, 15, 18, 24, 25, 36, 37, 60];
 
-            const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine',
-                'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
-            const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
-            const scales = ['', 'Thousand', 'Million', 'Billion', 'Trillion'];
+    let state = {
+      amount: 100000,
+      depositor: 'general',
+      payout: 'monthly',
+      period: 12,
+      mode: 'forward',
+    };
 
-            function helper(num) {
-                if (num === 0) return '';
-                if (num < 20) return ones[num] + ' ';
-                if (num < 100) return tens[Math.floor(num / 10)] + ' ' + helper(num % 10);
-                return ones[Math.floor(num / 100)] + ' Hundred ' + helper(num % 100);
-            }
+    // Build period grid
+    const periodGrid = document.getElementById('periodGrid');
+    PERIODS.forEach(m => {
+      const btn = document.createElement('button');
+      btn.dataset.val = m;
+      btn.innerHTML = `<span class="m">${m} Mo</span><span class="r">—</span>`;
+      if (m === state.period) btn.classList.add('active');
+      btn.addEventListener('click', () => {
+        if (btn.disabled) return;
+        state.period = m;
+        refreshPeriodGrid();
+        calculate();
+      });
+      periodGrid.appendChild(btn);
+    });
 
-            let words = '';
-            let scaleIndex = 0;
-            let num = Math.floor(n);
+    function refreshPeriodGrid() {
+      [...periodGrid.children].forEach(btn => {
+        const m = Number(btn.dataset.val);
+        const data = RATES[m][state.depositor];
+        const rateKey = state.payout === 'monthly' ? 'monthly' : 'maturity';
+        const hasData = data && data[rateKey] !== null && data[rateKey] !== undefined;
 
-            while (num > 0) {
-                const chunk = num % 1000;
-                if (chunk !== 0) {
-                    const chunkWords = helper(chunk).trim();
-                    words = chunkWords + (scales[scaleIndex] ? ' ' + scales[scaleIndex] + ' ' : ' ') + words;
-                }
-                num = Math.floor(num / 1000);
-                scaleIndex++;
-            }
+        btn.classList.toggle('active', m === state.period);
+        btn.disabled = !hasData;
 
-            return words.trim();
+        if (hasData) {
+          btn.querySelector('.r').textContent = data[rateKey] + '%';
+        } else {
+          btn.querySelector('.r').textContent = 'N/A';
         }
+      });
+    }
 
-        // ---------- CONVERT AMOUNT ----------
-        function convertAmount(amountStr) {
-            const clean = amountStr.replace(/,/g, '').trim();
+    // Amount input
+    const amountInput = document.getElementById('amountInput');
+    function formatNumber(n) { return Number(n).toLocaleString('en-US'); }
+    amountInput.addEventListener('input', (e) => {
+      const raw = e.target.value.replace(/[^0-9]/g, '');
+      state.amount = raw ? Number(raw) : 0;
+      e.target.value = raw ? formatNumber(raw) : '';
+      calculate();
+    });
+    amountInput.addEventListener('blur', () => {
+      if (!state.amount) { state.amount = 0; amountInput.value = '0'; }
+    });
 
-            if (clean === '') return null;
+    const quickAmountsEl = document.getElementById('quickAmounts');
+    const amountLabelEl = document.getElementById('amountLabel');
 
-            const num = parseFloat(clean);
+    function updateAmountFieldUI() {
+      let label, chipValues;
+      if (state.mode === 'forward') {
+        label = 'Deposit Amount (Rs.)';
+        chipValues = [50000, 100000, 500000, 1000000];
+      } else if (state.payout === 'monthly') {
+        label = 'Desired Monthly Income (Rs.)';
+        chipValues = [5000, 10000, 25000, 50000];
+      } else {
+        label = 'Desired Maturity Interest (Rs.)';
+        chipValues = [50000, 100000, 250000, 500000];
+      }
+      amountLabelEl.textContent = label;
+      quickAmountsEl.innerHTML = '';
+      chipValues.forEach(v => {
+        const btn = document.createElement('button');
+        btn.className = 'chip';
+        btn.textContent = formatNumber(v);
+        btn.addEventListener('click', () => {
+          state.amount = v;
+          amountInput.value = formatNumber(v);
+          calculate();
+        });
+        quickAmountsEl.appendChild(btn);
+      });
+    }
 
-            if (isNaN(num) || num < 0) return 'Enter a valid amount';
+    // Segmented controls
+    function setupSeg(id, key, extra) {
+      const seg = document.getElementById(id);
+      seg.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          seg.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          state[key] = btn.dataset.val;
 
-            const integerPart = Math.floor(num);
-            const cents = Math.round((num - integerPart) * 100);
+          if (key === 'depositor' && state.depositor === 'senior') {
+            const cur = RATES[state.period]?.senior;
+            if (!cur) { state.period = 12; }
+          }
+          refreshPeriodGrid();
+          if (extra) extra();
+          calculate();
+        });
+      });
+    }
+    setupSeg('depositorSeg', 'depositor');
+    setupSeg('payoutSeg', 'payout', updateAmountFieldUI);
+    setupSeg('modeSeg', 'mode', updateAmountFieldUI);
 
-            let result = numberToWords(integerPart);
+    function rs(n) { return 'Rs. ' + Math.round(n).toLocaleString('en-US'); }
 
-            if (cents > 0) {
-                result += ` and ${cents}/100`;
-            }
+    // Calculate Function (No animations, direct DOM update)
+    function calculate() {
+      const data = RATES[state.period][state.depositor];
+      if (!data) return;
 
-            if (result.length > 0) {
-                result = result.charAt(0).toUpperCase() + result.slice(1);
-            }
+      const grossRate = state.payout === 'monthly' ? data.monthly : data.maturity;
+      const netRate = state.payout === 'monthly' ? data.monthlyNet : data.maturityNet;
 
-            result += ' Rupees';
+      if (grossRate === null || grossRate === undefined) return;
 
-            return result || 'Zero Rupees';
+      const years = state.period / 12;
+      const monthlyRateFrac = data.monthly !== null ? data.monthly / 100 / 12 : 0;
+
+      let P;
+      if (state.mode === 'reverse') {
+        const desired = state.amount;
+        if (state.payout === 'monthly') {
+          P = monthlyRateFrac > 0 ? desired / monthlyRateFrac : 0;
+        } else {
+          const growthFactor = Math.pow(1 + data.maturity / 100, years) - 1;
+          P = growthFactor > 0 ? desired / growthFactor : 0;
         }
+      } else {
+        P = state.amount;
+      }
 
-        // ---------- UI ----------
-        const input = document.getElementById('amountInput');
-        const output = document.getElementById('wordOutput');
-        const convertBtn = document.getElementById('convertBtn');
-        const exampleBtns = document.querySelectorAll('.example-btn');
+      const monthlyIncome = P * monthlyRateFrac;
+      const totalMonthlyPayout = monthlyIncome * state.period;
 
-        function updateOutput() {
-            const raw = input.value;
-            const converted = convertAmount(raw);
+      document.getElementById('rateValue').textContent = grossRate.toFixed(2) + '%';
+      document.getElementById('rateSubLabel').textContent = 'AER ' + netRate.toFixed(2) + '%';
 
-            if (converted === null) {
-                output.innerHTML = `<span class="lkr-output">LKR</span> Enter an amount to convert`;
-                output.classList.add('placeholder');
-            } else if (converted === 'Enter a valid amount') {
-                output.innerHTML = converted;
-                output.classList.add('placeholder');
-            } else {
-                output.innerHTML = `<span class="lkr-output">LKR</span> ${converted}`;
-                output.classList.remove('placeholder');
-            }
+      if (state.payout === 'monthly') {
+        if (state.mode === 'forward') {
+          document.getElementById('heroLabel').textContent = 'Monthly Income';
+          document.getElementById('heroSub').textContent = 'Deposited monthly to your account';
+          document.getElementById('heroValue').textContent = rs(monthlyIncome);
+
+          document.getElementById('secondLabel').textContent = `Total Interest over ${state.period} Months`;
+          document.getElementById('secondSub').textContent = `Principal of ${rs(P)} returned at maturity`;
+          document.getElementById('secondValue').textContent = rs(totalMonthlyPayout);
+        } else {
+          document.getElementById('heroLabel').textContent = 'Required Deposit';
+          document.getElementById('heroSub').textContent = 'You need to deposit this amount';
+          document.getElementById('heroValue').textContent = rs(P);
+
+          document.getElementById('secondLabel').textContent = 'Expected Monthly Income';
+          document.getElementById('secondSub').textContent = 'Equals your requested income';
+          document.getElementById('secondValue').textContent = rs(monthlyIncome);
         }
+      } else {
+        const maturityValue = P * Math.pow(1 + grossRate / 100, years);
+        const totalInterest = maturityValue - P;
 
-        input.addEventListener('input', function() {
-            let val = this.value;
-            val = val.replace(/[^0-9.,]/g, '');
-            const parts = val.split('.');
-            if (parts.length > 2) {
-                val = parts[0] + '.' + parts.slice(1).join('');
-            }
-            this.value = val;
-            updateOutput();
-        });
+        if (state.mode === 'forward') {
+          document.getElementById('heroLabel').textContent = 'Maturity Value';
+          document.getElementById('heroSub').textContent = `Principal ${rs(P)} + Interest`;
+          document.getElementById('heroValue').textContent = rs(maturityValue);
 
-        convertBtn.addEventListener('click', function() {
-            updateOutput();
-            this.textContent = '✓ Done';
-            setTimeout(() => { this.textContent = 'Convert'; }, 600);
-        });
+          document.getElementById('secondLabel').textContent = 'Total Interest Income';
+          document.getElementById('secondSub').textContent = `Accumulated over ${state.period} months`;
+          document.getElementById('secondValue').textContent = rs(totalInterest);
+        } else {
+          document.getElementById('heroLabel').textContent = 'Required Deposit';
+          document.getElementById('heroSub').textContent = 'You need to deposit this amount';
+          document.getElementById('heroValue').textContent = rs(P);
 
-        input.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                convertBtn.click();
-            }
-        });
+          document.getElementById('secondLabel').textContent = 'Maturity Value';
+          document.getElementById('secondSub').textContent = 'Principal + requested interest';
+          document.getElementById('secondValue').textContent = rs(maturityValue);
+        }
+      }
+    }
 
-        exampleBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const amount = this.dataset.amount;
-                input.value = amount;
-                updateOutput();
-                input.focus();
-                input.select();
-            });
-        });
-
-        updateOutput();
-    })();
-</script>
-
+    // Init
+    amountInput.value = formatNumber(state.amount);
+    updateAmountFieldUI();
+    refreshPeriodGrid();
+    calculate();
+  </script>
 </body>
 </html>
