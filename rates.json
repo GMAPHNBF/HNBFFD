@@ -1,6 +1,6 @@
 {
  "source": "https://www.hnbfinance.lk/fixed-deposits/",
- "lastChecked": "2026-11-24T14:55:00+00:00",
+ "lastChecked": "2026-11-24T15:00:58+00:00",
  "lastChanged": "2026-10-01T00:00:00+00:00",
  "effectiveDate": "01st October 2026",
  "ref": "HNBF/PBMD(FD&S)-26-12",
@@ -25,18 +25,18 @@
   },
   "4": {
    "general": {
-    "monthly": 8,
+    "monthly": 8.0,
     "monthlyNet": 8.3,
-    "maturity": 9,
+    "maturity": 9.0,
     "maturityNet": 9.27
    },
    "senior": null
   },
   "5": {
    "general": {
-    "monthly": 8,
+    "monthly": 8.0,
     "monthlyNet": 8.3,
-    "maturity": 9,
+    "maturity": 9.0,
     "maturityNet": 9.24
    },
    "senior": null
@@ -52,7 +52,7 @@
   },
   "7": {
    "general": {
-    "monthly": 10,
+    "monthly": 10.0,
     "monthlyNet": 10.47,
     "maturity": 10.5,
     "maturityNet": 10.73
@@ -76,17 +76,17 @@
     "maturityNet": 11.5
    },
    "senior": {
-    "monthly": 11,
+    "monthly": 11.0,
     "monthlyNet": 11.57,
-    "maturity": 12,
-    "maturityNet": 12
+    "maturity": 12.0,
+    "maturityNet": 12.0
    }
   },
   "13": {
    "general": {
-    "monthly": 9,
+    "monthly": 9.0,
     "monthlyNet": 9.38,
-    "maturity": 10,
+    "maturity": 10.0,
     "maturityNet": 9.96
    },
    "senior": {
@@ -98,9 +98,9 @@
   },
   "15": {
    "general": {
-    "monthly": 9,
+    "monthly": 9.0,
     "monthlyNet": 9.38,
-    "maturity": 10,
+    "maturity": 10.0,
     "maturityNet": 9.88
    },
    "senior": {
@@ -112,9 +112,9 @@
   },
   "18": {
    "general": {
-    "monthly": 9,
+    "monthly": 9.0,
     "monthlyNet": 9.38,
-    "maturity": 10,
+    "maturity": 10.0,
     "maturityNet": 9.77
    },
    "senior": {
@@ -126,21 +126,21 @@
   },
   "24": {
    "general": {
-    "monthly": 9,
+    "monthly": 9.0,
     "monthlyNet": 9.38,
-    "maturity": 10,
+    "maturity": 10.0,
     "maturityNet": 9.54
    },
    "senior": {
     "monthly": 9.5,
     "monthlyNet": 9.92,
     "maturity": 10.5,
-    "maturityNet": 10
+    "maturityNet": 10.0
    }
   },
   "25": {
    "general": {
-    "monthly": 11,
+    "monthly": 11.0,
     "monthlyNet": 11.57,
     "maturity": 12.5,
     "maturityNet": 11.75
@@ -148,7 +148,7 @@
    "senior": {
     "monthly": 11.5,
     "monthlyNet": 12.13,
-    "maturity": 13,
+    "maturity": 13.0,
     "maturityNet": 12.19
    }
   },
@@ -156,11 +156,11 @@
    "general": {
     "monthly": 9.5,
     "monthlyNet": 9.92,
-    "maturity": 10,
+    "maturity": 10.0,
     "maturityNet": 9.14
    },
    "senior": {
-    "monthly": 10,
+    "monthly": 10.0,
     "monthlyNet": 10.47,
     "maturity": 10.5,
     "maturityNet": 9.56
@@ -170,11 +170,11 @@
    "general": {
     "monthly": 11.5,
     "monthlyNet": 12.13,
-    "maturity": 13,
+    "maturity": 13.0,
     "maturityNet": 11.55
    },
    "senior": {
-    "monthly": 12,
+    "monthly": 12.0,
     "monthlyNet": 12.68,
     "maturity": 13.5,
     "maturityNet": 11.95
@@ -190,7 +190,7 @@
    "senior": {
     "monthly": 12.25,
     "monthlyNet": 12.96,
-    "maturity": 15,
+    "maturity": 15.0,
     "maturityNet": 11.84
    }
   }
