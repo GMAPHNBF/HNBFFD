@@ -351,8 +351,9 @@
     <p class="hero-sub">Select your amount, duration, and payout method to instantly see your potential returns.</p>
     <div class="effective-note">
       <span class="dot-live"></span>
-      New rates effective from 01st October 2026 (HNBF/PBMD(FD&amp;S)-26-12)
+      <span id="effNote">New rates effective from 01st October 2026 (HNBF/PBMD(FD&amp;S)-26-12)</span>
     </div>
+    <div id="updNote" style="font-size:12px;color:var(--hnb-mu);margin:-6px 0 18px;font-weight:500;"></div>
 
     <div class="grid">
       <!-- FORM -->
@@ -419,11 +420,11 @@
 
         <div class="rate-pill">
           <div class="icon">💡</div>
-          <div class="txt">Senior citizens can enjoy up to <b>15.00%</b> at maturity for a 60-month duration.</div>
+          <div class="txt">Senior citizens can enjoy up to <b id="seniorMax">15.00%</b> at maturity for a <span id="seniorMaxTenure">60</span>-month duration.</div>
         </div>
 
         <div class="disclaimer">
-          * This calculation is for illustration purposes only. For final rates and terms, visit an HNB FINANCE branch or hnbfinance.lk. Rates are subject to change. (HNBF/PBMD(FD&amp;S)-26-12 — Effective 01st Oct 2026)
+          * This calculation is for illustration purposes only. For final rates and terms, visit an HNB FINANCE branch or hnbfinance.lk. Rates are subject to change. <span id="discNote">(HNBF/PBMD(FD&amp;S)-26-12 — Effective 01st Oct 2026)</span>
         </div>
       </div>
     </div>
@@ -526,7 +527,7 @@
     });
 
     // ===== UPDATED RATES (Effective 01st October 2026) =====
-    const RATES = {
+    let RATES = {  // fallback copy; live values load from rates.json
       1:  { general: { monthly: null,  monthlyNet: null,  maturity: 7.50,  maturityNet: 7.76  }, senior: null },
       3:  { general: { monthly: 9.25,  monthlyNet: 9.65,  maturity: 9.75,  maturityNet: 10.11 }, senior: null },
       4:  { general: { monthly: 8.00,  monthlyNet: 8.30,  maturity: 9.00,  maturityNet: 9.27  }, senior: null },
@@ -544,7 +545,7 @@
       37: { general: { monthly: 11.50, monthlyNet: 12.13, maturity: 13.00, maturityNet: 11.55 }, senior: { monthly: 12.00, monthlyNet: 12.68, maturity: 13.50, maturityNet: 11.95 } },
       60: { general: { monthly: 11.75, monthlyNet: 12.40, maturity: 14.50, maturityNet: 11.52 }, senior: { monthly: 12.25, monthlyNet: 12.96, maturity: 15.00, maturityNet: 11.84 } },
     };
-    const PERIODS = [1, 3, 4, 5, 6, 7, 9, 12, 13, 15, 18, 24, 25, 36, 37, 60];
+    let PERIODS = [1, 3, 4, 5, 6, 7, 9, 12, 13, 15, 18, 24, 25, 36, 37, 60];
 
     let state = {
       amount: 100000,
@@ -556,19 +557,23 @@
 
     // Build period grid
     const periodGrid = document.getElementById('periodGrid');
-    PERIODS.forEach(m => {
-      const btn = document.createElement('button');
-      btn.dataset.val = m;
-      btn.innerHTML = `<span class="m">${m} Mo</span><span class="r">—</span>`;
-      if (m === state.period) btn.classList.add('active');
-      btn.addEventListener('click', () => {
-        if (btn.disabled) return;
-        state.period = m;
-        refreshPeriodGrid();
-        calculate();
+    function buildPeriodGrid() {
+      periodGrid.innerHTML = '';
+      PERIODS.forEach(m => {
+        const btn = document.createElement('button');
+        btn.dataset.val = m;
+        btn.innerHTML = `<span class="m">${m} Mo</span><span class="r">—</span>`;
+        if (m === state.period) btn.classList.add('active');
+        btn.addEventListener('click', () => {
+          if (btn.disabled) return;
+          state.period = m;
+          refreshPeriodGrid();
+          calculate();
+        });
+        periodGrid.appendChild(btn);
       });
-      periodGrid.appendChild(btn);
-    });
+    }
+    buildPeriodGrid();
 
     function refreshPeriodGrid() {
       [...periodGrid.children].forEach(btn => {
@@ -766,11 +771,64 @@
       }
     }
 
+    // ===== LIVE RATES (rates.json is refreshed automatically by GitHub Actions) =====
+    function fmtDT(iso) {
+      try {
+        return new Date(iso).toLocaleString('en-GB', {
+          timeZone: 'Asia/Colombo', day: '2-digit', month: 'short', year: 'numeric',
+          hour: '2-digit', minute: '2-digit', hour12: true
+        });
+      } catch (e) { return iso; }
+    }
+    function applyMeta(meta) {
+      const eff = document.getElementById('effNote');
+      const disc = document.getElementById('discNote');
+      const ref = meta.ref ? ' (' + meta.ref + ')' : '';
+      if (meta.effectiveDate) {
+        eff.textContent = 'New rates effective from ' + meta.effectiveDate + ref;
+        disc.textContent = '(Effective ' + meta.effectiveDate + ')';
+      }
+      const parts = [];
+      if (meta.lastChanged) parts.push('Rates last changed: ' + fmtDT(meta.lastChanged));
+      if (meta.lastChecked) parts.push('Last checked with hnbfinance.lk: ' + fmtDT(meta.lastChecked));
+      document.getElementById('updNote').textContent = parts.join('  •  ');
+    }
+    function updateSeniorPill() {
+      let best = null, tenure = null;
+      Object.keys(RATES).forEach(m => {
+        const s = RATES[m] && RATES[m].senior;
+        if (s && s.maturity != null && (best === null || s.maturity > best)) { best = s.maturity; tenure = m; }
+      });
+      if (best !== null) {
+        document.getElementById('seniorMax').textContent = best.toFixed(2) + '%';
+        document.getElementById('seniorMaxTenure').textContent = tenure;
+      }
+    }
+    async function loadLiveRates() {
+      try {
+        const res = await fetch('rates.json?t=' + Date.now(), { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        if (!data.rates || !Object.keys(data.rates).length) throw new Error('empty');
+        RATES = data.rates;
+        PERIODS = Object.keys(RATES).map(Number).sort((a, b) => a - b);
+        if (!RATES[state.period]) state.period = PERIODS.includes(12) ? 12 : PERIODS[0];
+        buildPeriodGrid();
+        applyMeta(data);
+        updateSeniorPill();
+        refreshPeriodGrid();
+        calculate();
+      } catch (e) {
+        console.warn('Live rates unavailable, using built-in rates.', e);
+      }
+    }
+
     // Init
     amountInput.value = formatNumber(state.amount);
     updateAmountFieldUI();
     refreshPeriodGrid();
     calculate();
+    loadLiveRates();
   </script>
 </body>
 </html>
