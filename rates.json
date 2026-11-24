@@ -1,0 +1,198 @@
+{
+ "source": "https://www.hnbfinance.lk/fixed-deposits/",
+ "lastChecked": "2026-11-24T14:55:00+00:00",
+ "lastChanged": "2026-10-01T00:00:00+00:00",
+ "effectiveDate": "01st October 2026",
+ "ref": "HNBF/PBMD(FD&S)-26-12",
+ "rates": {
+  "1": {
+   "general": {
+    "monthly": null,
+    "monthlyNet": null,
+    "maturity": 7.5,
+    "maturityNet": 7.76
+   },
+   "senior": null
+  },
+  "3": {
+   "general": {
+    "monthly": 9.25,
+    "monthlyNet": 9.65,
+    "maturity": 9.75,
+    "maturityNet": 10.11
+   },
+   "senior": null
+  },
+  "4": {
+   "general": {
+    "monthly": 8,
+    "monthlyNet": 8.3,
+    "maturity": 9,
+    "maturityNet": 9.27
+   },
+   "senior": null
+  },
+  "5": {
+   "general": {
+    "monthly": 8,
+    "monthlyNet": 8.3,
+    "maturity": 9,
+    "maturityNet": 9.24
+   },
+   "senior": null
+  },
+  "6": {
+   "general": {
+    "monthly": 8.5,
+    "monthlyNet": 8.84,
+    "maturity": 9.5,
+    "maturityNet": 9.73
+   },
+   "senior": null
+  },
+  "7": {
+   "general": {
+    "monthly": 10,
+    "monthlyNet": 10.47,
+    "maturity": 10.5,
+    "maturityNet": 10.73
+   },
+   "senior": null
+  },
+  "9": {
+   "general": {
+    "monthly": 8.5,
+    "monthlyNet": 8.84,
+    "maturity": 9.5,
+    "maturityNet": 9.61
+   },
+   "senior": null
+  },
+  "12": {
+   "general": {
+    "monthly": 10.5,
+    "monthlyNet": 11.02,
+    "maturity": 11.5,
+    "maturityNet": 11.5
+   },
+   "senior": {
+    "monthly": 11,
+    "monthlyNet": 11.57,
+    "maturity": 12,
+    "maturityNet": 12
+   }
+  },
+  "13": {
+   "general": {
+    "monthly": 9,
+    "monthlyNet": 9.38,
+    "maturity": 10,
+    "maturityNet": 9.96
+   },
+   "senior": {
+    "monthly": 9.5,
+    "monthlyNet": 9.92,
+    "maturity": 10.5,
+    "maturityNet": 10.46
+   }
+  },
+  "15": {
+   "general": {
+    "monthly": 9,
+    "monthlyNet": 9.38,
+    "maturity": 10,
+    "maturityNet": 9.88
+   },
+   "senior": {
+    "monthly": 9.5,
+    "monthlyNet": 9.92,
+    "maturity": 10.5,
+    "maturityNet": 10.37
+   }
+  },
+  "18": {
+   "general": {
+    "monthly": 9,
+    "monthlyNet": 9.38,
+    "maturity": 10,
+    "maturityNet": 9.77
+   },
+   "senior": {
+    "monthly": 9.5,
+    "monthlyNet": 9.92,
+    "maturity": 10.5,
+    "maturityNet": 10.24
+   }
+  },
+  "24": {
+   "general": {
+    "monthly": 9,
+    "monthlyNet": 9.38,
+    "maturity": 10,
+    "maturityNet": 9.54
+   },
+   "senior": {
+    "monthly": 9.5,
+    "monthlyNet": 9.92,
+    "maturity": 10.5,
+    "maturityNet": 10
+   }
+  },
+  "25": {
+   "general": {
+    "monthly": 11,
+    "monthlyNet": 11.57,
+    "maturity": 12.5,
+    "maturityNet": 11.75
+   },
+   "senior": {
+    "monthly": 11.5,
+    "monthlyNet": 12.13,
+    "maturity": 13,
+    "maturityNet": 12.19
+   }
+  },
+  "36": {
+   "general": {
+    "monthly": 9.5,
+    "monthlyNet": 9.92,
+    "maturity": 10,
+    "maturityNet": 9.14
+   },
+   "senior": {
+    "monthly": 10,
+    "monthlyNet": 10.47,
+    "maturity": 10.5,
+    "maturityNet": 9.56
+   }
+  },
+  "37": {
+   "general": {
+    "monthly": 11.5,
+    "monthlyNet": 12.13,
+    "maturity": 13,
+    "maturityNet": 11.55
+   },
+   "senior": {
+    "monthly": 12,
+    "monthlyNet": 12.68,
+    "maturity": 13.5,
+    "maturityNet": 11.95
+   }
+  },
+  "60": {
+   "general": {
+    "monthly": 11.75,
+    "monthlyNet": 12.4,
+    "maturity": 14.5,
+    "maturityNet": 11.52
+   },
+   "senior": {
+    "monthly": 12.25,
+    "monthlyNet": 12.96,
+    "maturity": 15,
+    "maturityNet": 11.84
+   }
+  }
+ }
+}
